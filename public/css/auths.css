@@ -1,0 +1,108 @@
+#auth_portals_container {
+  position: relative;
+  height: 100%;
+  max-height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: start;
+}
+
+#auth_list_holder {
+  position: relative;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: start;
+  padding-right: 20px;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.auth_portal_card {
+  width: 100%;
+  padding: 20px 20px;
+  /* background: #121b29; */
+  background-image: linear-gradient(45deg, #0d131d, #141e2c);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.portal_card_icon {
+  color: white;
+  font-size: 30px;
+  transition: all 0.1s;
+}
+
+.portal_title {
+  color: white;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 25px;
+  font-weight: 700;
+  width: fit-content;
+  padding: 3px 3px;
+  transition: all 0.1s;
+  caret-color: transparent;
+}
+
+.portal_card_arrow {
+  color: white;
+  transition: all 0.1s;
+  font-size: 30px;
+}
+
+.portal_name_hldr {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 13px;
+}
+
+.portal_btns_hldr {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+
+.portal_submit_edit_btn, .portal_cancel_edit_btn {
+  display: none;
+}
+
+.portal_edit_btn, .portal_delete_btn {
+  visibility: hidden;
+  cursor: pointer;
+  color: white;
+  transition: color 0.1s, transform 0.1s;
+  padding: 4px;
+  border-radius: 50%;
+}
+
+.portal_delete_btn:hover {
+  background-color: #ff00008c;
+}
+
+.auth_portal_card:hover .portal_edit_btn, .auth_portal_card:hover .portal_delete_btn {
+  visibility: visible;
+}
+
+.portal_edit_btn:hover {
+  transform: scale(1.2);
+}
+
+.portal_delete_btn:hover {
+  transform: scale(1.2);
+}
