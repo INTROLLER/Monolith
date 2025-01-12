@@ -8,7 +8,8 @@ const dataPath = './data/data.json';
 
 fs.access(dataPath)
 .catch(() => {
-  fs.writeFile(dataPath, JSON.stringify([]), 'utf8')
+  return fs.mkdir('./data', { recursive: true })
+  .then(() => fs.writeFile(dataPath, JSON.stringify([]), 'utf8'))
 });
 
 // Serve the HTML page
