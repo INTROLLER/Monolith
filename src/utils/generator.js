@@ -3,12 +3,10 @@ const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const num = '0123456789';
 const symb = '!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
-const AllChars = [...lower, ...upper, ...num, ...symb];
-
-function generate(length, includeLowerCase, includeUpperCase, includeNumbers, includeSymbols) {
+function generatePass(length, includeLowerCase, includeUpperCase, includeNumbers, includeSymbols) {
   let result = '';
   let chars = [];
-  
+
   if (includeLowerCase) chars.push(...lower)
   if (includeUpperCase) chars.push(...upper)
   if (includeNumbers) chars.push(...num)
@@ -22,5 +20,5 @@ function generate(length, includeLowerCase, includeUpperCase, includeNumbers, in
 }
 
 module.exports = {
-  generate
+  generatePass
 }
