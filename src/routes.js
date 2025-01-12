@@ -1,11 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs').promises;
-const { encrypt, decrypt } = require('./utils/security');
-const { generate } = require('./utils/generator');
+const { encrypt, decrypt, generateKeys } = require('./utils/security');
+const { generatePass } = require('./utils/generator');
 const { benchmark } = require('./utils/benchmark');
 const dataPath = './data/data.json';
+const keysPath = './data/keys.json';
 
+// Set up security keys if they don't exist
+fs.access(keysPath)
+.catch(() => {
+  return fs.mkdir('./data', { recursive: true })
+  .then(() => fs.writeFile(keysPath, JSON.stringify(generateKeys), 'utf8'))
+});
+
+// Set up storage if it doesn't exist
 fs.access(dataPath)
 .catch(() => {
   return fs.mkdir('./data', { recursive: true })
@@ -215,7 +224,7 @@ router.get('/api/generate', (req, res) => {
 
   if (!useUpper && !useLower && !useNumbers && !useSymbols) return;
 
-  const generatedPass = generate(length, useLower, useUpper, useNumbers, useSymbols)
+  const generatedPass = generatePass(length, useLower, useUpper, useNumbers, useSymbols)
   res.send({ password: generatedPass });
 });
 
