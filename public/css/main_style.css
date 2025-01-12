@@ -123,7 +123,6 @@ body {
   color: white;
   background-color: transparent;
   padding: 10px 0;
-  border-radius: 10px;
 }
 
 input[readonly] {
