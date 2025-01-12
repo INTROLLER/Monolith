@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 let cryptoString
-const securePath = './data/secure.json';
+const mapsPath = './data/keys.json';
 
 const lower = 'abcdefghijklmnopqrstuvwxyz';
 const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -9,6 +9,7 @@ const num = '0123456789';
 const symb = '!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 
 const AllChars = [...lower, ...upper, ...num, ...symb + ' '];
+const AllCharsNoSpace = [...lower, ...upper, ...num, ...symb];
 
 function encrypt(data_type, data) {
   let key
@@ -17,15 +18,16 @@ function encrypt(data_type, data) {
   else if (data_type == 'login') key = cryptoString[1]
   else if (data_type == 'auth_portal') key = cryptoString[2]
 
-  let encrypted = ''
+  let result = ''
+
   for (let i = 0; i < data.length; i++) {
     let char = data[i]
     let index = AllChars.indexOf(char)
     let encryptedChar = key[index]
-    encrypted += encryptedChar
+    result += encryptedChar
   }
 
-  return encrypted
+  return result
 }
 
 function decrypt(data_type, data) {
@@ -35,19 +37,37 @@ function decrypt(data_type, data) {
   else if (data_type == 'login') key = cryptoString[1]
   else if (data_type == 'auth_portal') key = cryptoString[2]
 
-  let decrypted = ''
+  let result = ''
+  
   for (let i = 0; i < data.length; i++) {
     let char = data[i]
     let index = key.indexOf(char)
     let decryptedChar = AllChars[index]
-    decrypted += decryptedChar
+    result += decryptedChar
   }
 
-  return decrypted
+  return result
+}
+
+function generateKeys() {
+  let resultList = []
+
+  for (let i = 0; i < 3; i++) {
+    let result = []
+
+    for (let i = 0; i < AllChars.length; i++) {
+      let index = Math.floor(Math.random() * AllCharsNoSpace.length)
+      result.push(AllCharsNoSpace[index])
+    }
+
+    resultList.push(result)
+  }
+
+  return resultList
 }
 
 try {
-  fs.readFile(securePath, 'utf8', (err, data) => {
+  fs.readFile(mapsPath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading file:', err);
       return;
@@ -61,5 +81,6 @@ try {
 
 module.exports = {
   encrypt,
-  decrypt
+  decrypt,
+  generateKeys
 }
