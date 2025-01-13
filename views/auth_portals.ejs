@@ -7,7 +7,7 @@
     <% for (let i = 0; i < data.length; i++) { %>
         <div id="<%= data[i]%>" class="auth_portal_card">
             <div class="portal_name_hldr">
-            <i class="material-symbols-rounded portal_card_icon">shield_locked</i>
+            <i class="material-symbols-rounded portal_card_icon">folder</i>
             <input type="text" class="portal_title" readonly value="<%= data[i] %>">
             <div class="portal_btns_hldr">
                 <button type="button" class="portal_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
@@ -22,9 +22,9 @@
   </div>
   <div class="input_hldr">
       <div class="input_cover">
-          <i class="material-symbols-rounded input_icon">note_add</i>
-          <input id="auth_portal_input" class="data_input" type="text" placeholder="Enter new auth portal name">
+          <i class="material-symbols-rounded input_icon">match_case</i>
+          <input id="auth_portal_input" class="data_input" type="text" placeholder="Enter portal title">
       </div>
-      <button type="button" id="create_portal_btn" class="advanced_btn"><i class="material-symbols-rounded btn_icon">add_2</i> Add</button>
+      <button type="button" id="create_portal_btn" class="advanced_btn"><i class="material-symbols-rounded btn_icon">create_new_folder</i> Add</button>
   </div>
 </div>

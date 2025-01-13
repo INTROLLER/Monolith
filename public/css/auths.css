@@ -83,20 +83,14 @@
 }
 
 .portal_edit_btn, .portal_delete_btn {
-  visibility: hidden;
+  display: none;
   cursor: pointer;
-  color: white;
   transition: color 0.1s, transform 0.1s;
   padding: 4px;
-  border-radius: 50%;
-}
-
-.portal_delete_btn:hover {
-  background-color: #ff00008c;
 }
 
 .auth_portal_card:hover .portal_edit_btn, .auth_portal_card:hover .portal_delete_btn {
-  visibility: visible;
+  display: block;
 }
 
 .portal_edit_btn:hover {
@@ -105,4 +99,8 @@
 
 .portal_delete_btn:hover {
   transform: scale(1.2);
+}
+
+.portal_delete_btn:hover .btn_icon {
+  color: rgb(255, 40, 40);
 }

@@ -161,6 +161,51 @@ function handleDeletePortalBtn(btn) {
   });
 }
 
+function handlePortalInputSubmit(input) {
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const card = input.closest('.auth_portal_card');
+      const editBtn = card.querySelector('.portal_edit_btn');
+      const deleteBtn = card.querySelector('.portal_delete_btn');
+      const acceptBtn = card.querySelector('.portal_submit_edit_btn');
+      const cancelBtn = card.querySelector('.portal_cancel_edit_btn');
+      const portalName = card.id;
+      const option = authPortalSelect.querySelector(`#${portalName}_option`);
+      const newPortalName = input.value;
+
+      e.stopPropagation();
+
+      if (!newPortalName || newPortalName === "") return;
+      else if (newPortalName !== portalName) {
+        if (newPortalName !== null) {
+          fetch('/api/edit_portal_name', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              oldName: portalName,
+              newName: newPortalName
+            }),
+          });
+        }
+      }
+
+      input.setAttribute('readonly', true);
+      input.style.borderBottom = 'none';
+      input.style.removeProperty('caret-color');
+
+      editBtn.style.display = 'flex';
+      deleteBtn.style.display = 'flex';
+      acceptBtn.style.display = 'none';
+      cancelBtn.style.display = 'none';
+
+      card.id = newPortalName;
+      option.value = newPortalName;
+      option.innerHTML = newPortalName;
+      option.id = `${newPortalName}_option`;
+    }
+  })
+}
+
 function handleEditCredBtn(btn) {
   btn.addEventListener('click', (e) => {
     const card = btn.closest('.cred_card');
@@ -298,7 +343,14 @@ function handleCopyBtn(btn) {
   btn.addEventListener('click', (e) => {
     const input = btn.closest('.input_hldr').querySelector('.data_input');
     const data = input.value;
+    const icon = btn.querySelector('i');
+
+    icon.style.color = '#2cd472';
     navigator.clipboard.writeText(data);
+
+    setTimeout(() => {
+      icon.removeAttribute('style');
+    }, 100);
   });
 }
 
@@ -330,7 +382,7 @@ function handlePortalCard(card) {
         card.dataset.active = 'false';
         passDisp.removeAttribute('style');
         toolsContainer.removeAttribute('style');
-        cardIcon.innerHTML = 'shield_locked';
+        cardIcon.innerHTML = 'folder';
         cardIcon.style.color = '#fff';
         cardTitle.style.color = '#fff';
         arrow.innerHTML = 'arrow_forward_ios';
@@ -340,7 +392,7 @@ function handlePortalCard(card) {
 
       allCards.forEach((card) => {
         if (card.dataset.active === 'true') {
-          card.querySelector('.portal_card_icon').innerHTML = 'shield_locked';
+          card.querySelector('.portal_card_icon').innerHTML = 'folder';
           card.querySelector('.portal_card_icon').style.color = '#fff';
           card.querySelector('.portal_title').style.color = '#fff';
           card.querySelector('.portal_card_arrow').innerHTML = 'arrow_forward_ios';
@@ -350,7 +402,7 @@ function handlePortalCard(card) {
         };
       })
 
-      cardIcon.innerHTML = 'policy';
+      cardIcon.innerHTML = 'folder_open';
       cardIcon.style.color = '#2cd472';
       cardTitle.style.color = '#2cd472';
       arrow.innerHTML = 'close';
@@ -361,6 +413,12 @@ function handlePortalCard(card) {
       toolsContainer.style.display = 'none';
       document.querySelector('#pass_disp_title').innerHTML = portalName;
       const credsLength = Object.values(data)[0].length;
+
+      const renderedCreds = passListHldr.getElementsByClassName('cred_card')
+      const renderedCredsLength = renderedCreds.length
+      for (let i = 0; i < renderedCredsLength; i++) {
+        renderedCreds[i].remove();
+      }
 
       if (credsLength !== 0) {
         noCredsHldr.style.display = 'none';
@@ -374,25 +432,25 @@ function handlePortalCard(card) {
                     <i class="material-symbols-rounded input_icon">person</i>
                     <input type="text" id="login_input_${i}" class="data_input login_input" readonly>
                   </div>
-                  <button type="button" id="copy_login_btn_${i}" class="copy_btn default_btn"><i class="material-symbols-rounded btn_icon">content_copy</i></button>
-                  <button type="button" id="login_vis_toggler_${i}" class="vis_toggler default_btn"><i class="material-symbols-rounded btn_icon">visibility_off</i></button>
-                  <button type="button" id="login_edit_btn_${i}" class="cred_edit_btn default_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
-                  <button type="button" id="login_submit_edit_btn_${i}" class="cred_submit_edit_btn default_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
-                  <button type="button" id="login_cancel_edit_btn_${i}" class="cred_cancel_edit_btn default_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
+                  <button type="button" id="copy_login_btn_${i}" class="copy_btn transparent_btn"><i class="material-symbols-rounded btn_icon">content_copy</i></button>
+                  <button type="button" id="login_vis_toggler_${i}" class="vis_toggler transparent_btn"><i class="material-symbols-rounded btn_icon">visibility_off</i></button>
+                  <button type="button" id="login_edit_btn_${i}" class="cred_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
+                  <button type="button" id="login_submit_edit_btn_${i}" class="cred_submit_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
+                  <button type="button" id="login_cancel_edit_btn_${i}" class="cred_cancel_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
                 </div>
                 <div class="input_hldr">
                   <div class="input_cover">
                     <i class="material-symbols-rounded input_icon">encrypted</i>
                     <input type="password" id="password_input_${i}" class="data_input pass_input" readonly>
                   </div>
-                  <button type="button" id="copy_pass_btn_${i}" class="copy_btn default_btn"><i class="material-symbols-rounded btn_icon">content_copy</i></button>
-                  <button type="button" id="pass_vis_toggler_${i}" class="vis_toggler default_btn"><i class="material-symbols-rounded btn_icon">visibility</i></button>
-                  <button type="button" id="pass_edit_btn_${i}" class="cred_edit_btn default_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
-                  <button type="button" id="pass_submit_edit_btn_${i}" class="cred_submit_edit_btn default_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
-                  <button type="button" id="pass_cancel_edit_btn_${i}" class="cred_cancel_edit_btn default_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
+                  <button type="button" id="copy_pass_btn_${i}" class="copy_btn transparent_btn"><i class="material-symbols-rounded btn_icon">content_copy</i></button>
+                  <button type="button" id="pass_vis_toggler_${i}" class="vis_toggler transparent_btn"><i class="material-symbols-rounded btn_icon">visibility</i></button>
+                  <button type="button" id="pass_edit_btn_${i}" class="cred_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
+                  <button type="button" id="pass_submit_edit_btn_${i}" class="cred_submit_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
+                  <button type="button" id="pass_cancel_edit_btn_${i}" class="cred_cancel_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
                 </div>
               </div>
-              <button type="button" id="cred_delete_btn_${i}" class="cred_delete_btn default_btn"><i class="material-symbols-rounded btn_icon">delete_forever</i></button>
+              <button type="button" id="cred_delete_btn_${i}" class="cred_delete_btn advanced_btn"><i class="material-symbols-rounded btn_icon">delete_forever</i></button>
             </div>
           `
           passListHldr.insertAdjacentHTML('beforeend', cardHtml);
@@ -443,6 +501,7 @@ function adjustInputWidth(input) {
 window.onload = () => {
   portalTitles.forEach((input) => {
     adjustInputWidth(input);
+    handlePortalInputSubmit(input);
   
     input.addEventListener('click', (e) => e.stopPropagation());
   });
@@ -524,7 +583,7 @@ createPortalBtn.addEventListener('click', function () {
     newCard.classList.add('auth_portal_card');
 
     newCard.innerHTML = `<div class="portal_name_hldr">
-                        <i class="material-symbols-rounded portal_card_icon">shield_locked</i>
+                        <i class="material-symbols-rounded portal_card_icon">folder</i>
                         <input type="text" class="portal_title" readonly value="${authPortal}">
                         <div class="portal_btns_hldr">
                             <button type="button" class="portal_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
@@ -547,6 +606,7 @@ createPortalBtn.addEventListener('click', function () {
     `
 
     adjustInputWidth(portalTitle);
+    handlePortalInputSubmit(portalTitle);
     portalTitle.addEventListener('click', (e) => e.stopPropagation());
     handlePortalCard(newCard);
     handleEditPortalBtn(editBtn);
@@ -587,7 +647,7 @@ passDispClose.addEventListener('click', () => {
 
   allCards.forEach((card) => {
     if (card.dataset.active === 'true') {
-      card.querySelector('.portal_card_icon').innerHTML = 'shield_locked';
+      card.querySelector('.portal_card_icon').innerHTML = 'folder';
       card.querySelector('.portal_card_icon').style.color = '#fff';
       card.querySelector('.portal_title').style.color = '#fff';
       card.querySelector('.portal_card_arrow').innerHTML = 'arrow_forward_ios';
