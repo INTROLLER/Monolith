@@ -12,12 +12,14 @@ const portalCards = document.querySelectorAll('.auth_portal_card');
 const portalTitles = document.querySelectorAll('.portal_title');
 const noPortalsHldr = document.querySelector('#no_portals_hldr');
 
+const authPortalSelect = document.querySelector('#auth_portal_select');
+
 const passDisp = document.querySelector('#pass_disp_container');
 const passListHldr = document.querySelector('#pass_list_hldr');
 const noCredsHldr = document.querySelector('#no_creds_hldr');
 
 import { handleCopyBtn, handleVisToggler } from './main.js';
-import { handleEditCredBtn, handleSumbitCredEditBtn, handleCancelCredEditBtn, handleDeleteCredBtn } from './pass_disp.js';
+import { handleEditCredBtn, handleSumbitCredEditBtn, handleCancelCredEditBtn, handleDeleteCredBtn, handleCredInputSubmit} from './pass_disp.js';
 
 function handleEditPortalBtn(btn) {
   btn.addEventListener('click', (e) => {
@@ -275,8 +277,15 @@ function handlePortalCard(card) {
             </div>
           `
           passListHldr.insertAdjacentHTML('beforeend', cardHtml);
-          passListHldr.querySelector(`#login_input_${i}`).value = Object.values(data)[0][i].login;
-          passListHldr.querySelector(`#password_input_${i}`).value = Object.values(data)[0][i].password;
+
+          const logInput = passListHldr.querySelector(`#login_input_${i}`);
+          const passInput = passListHldr.querySelector(`#password_input_${i}`);
+
+          logInput.value = Object.values(data)[0][i].login;
+          passInput.value = Object.values(data)[0][i].password;
+
+          handleCredInputSubmit(logInput);
+          handleCredInputSubmit(passInput);
   
           handleCopyBtn(passListHldr.querySelector(`#copy_login_btn_${i}`));
           handleCopyBtn(passListHldr.querySelector(`#copy_pass_btn_${i}`));

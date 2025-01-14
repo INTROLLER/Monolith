@@ -124,6 +124,48 @@ function handleDeleteCredBtn(btn) {
   });
 }
 
+function handleCredInputSubmit(input) {
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const card = input.closest('.cred_card');
+      const inputHldr = input.closest('.input_hldr');
+      const editBtn = inputHldr.querySelector('.cred_edit_btn');
+      const acceptBtn = inputHldr.querySelector('.cred_submit_edit_btn');
+      const cancelBtn = inputHldr.querySelector('.cred_cancel_edit_btn');
+      const copyBtn = inputHldr.querySelector('.copy_btn');
+      const index = card.id;
+      const newValue = input.value;
+
+      e.stopPropagation();
+
+      if (!newValue || newValue === "") return;
+      else if (newValue !== inputHldr.dataset.oldValue) {
+        if (newValue !== null) {
+          fetch('/api/edit_credentials', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              type: inputHldr.dataset.type,
+              index: index,
+              newData: newValue,
+              portalName: card.dataset.portalName
+            }),
+          });
+        }
+      }
+
+      input.setAttribute('readonly', true);
+      input.style.removeProperty('caret-color');
+
+      inputHldr.removeAttribute('id');
+      editBtn.removeAttribute('style');
+      acceptBtn.removeAttribute('style');
+      cancelBtn.removeAttribute('style');
+      copyBtn.removeAttribute('style');
+    }
+  });
+}
+
 passDispClose.addEventListener('click', () => {
   const allCards = document.querySelectorAll('.auth_portal_card');
 
@@ -143,4 +185,4 @@ passDispClose.addEventListener('click', () => {
   })
 })
 
-export { handleEditCredBtn, handleSumbitCredEditBtn, handleCancelCredEditBtn, handleDeleteCredBtn };
+export { handleEditCredBtn, handleSumbitCredEditBtn, handleCancelCredEditBtn, handleDeleteCredBtn, handleCredInputSubmit };
