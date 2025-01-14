@@ -12,6 +12,12 @@ const portalCards = document.querySelectorAll('.auth_portal_card');
 const portalTitles = document.querySelectorAll('.portal_title');
 const noPortalsHldr = document.querySelector('#no_portals_hldr');
 
+const passDisp = document.querySelector('#pass_disp_container');
+const passListHldr = document.querySelector('#pass_list_hldr');
+const noCredsHldr = document.querySelector('#no_creds_hldr');
+
+import { handleCopyBtn, handleVisToggler } from './main.js';
+
 function handleEditPortalBtn(btn) {
   btn.addEventListener('click', (e) => {
     const card = btn.closest('.auth_portal_card');
@@ -280,13 +286,13 @@ function handlePortalCard(card) {
           handleEditCredBtn(passListHldr.querySelector(`#login_edit_btn_${i}`));
           handleEditCredBtn(passListHldr.querySelector(`#pass_edit_btn_${i}`));
   
-          handleDeleteCredBtn(passListHldr.querySelector(`#cred_delete_btn_${i}`));
-  
           handleSumbitCredEditBtn(passListHldr.querySelector(`#login_submit_edit_btn_${i}`));
           handleSumbitCredEditBtn(passListHldr.querySelector(`#pass_submit_edit_btn_${i}`));
   
           handleCancelCredEditBtn(passListHldr.querySelector(`#login_cancel_edit_btn_${i}`));
           handleCancelCredEditBtn(passListHldr.querySelector(`#pass_cancel_edit_btn_${i}`));
+
+          handleDeleteCredBtn(passListHldr.querySelector(`#cred_delete_btn_${i}`));
         }
       } else {
         noCredsHldr.style.display = 'flex';
@@ -310,29 +316,6 @@ function adjustInputWidth(input) {
 
   setWidth(); // Set initial width
   input.addEventListener('input', setWidth);
-}
-
-function handleCopyBtn(btn) {
-  btn.addEventListener('click', (e) => {
-    const input = btn.closest('.input_hldr').querySelector('.data_input');
-    const data = input.value;
-    const icon = btn.querySelector('i');
-
-    icon.style.color = '#2cd472';
-    navigator.clipboard.writeText(data);
-
-    setTimeout(() => {
-      icon.removeAttribute('style');
-    }, 100);
-  });
-}
-
-function handleVisToggler(btn) {
-  btn.addEventListener('click', (e) => {
-    const input = btn.closest('.input_hldr').querySelector('.data_input');
-    input.type = input.type === 'password' ? 'text' : 'password';
-    btn.querySelector('i').innerHTML = input.type === 'password' ? 'visibility' : 'visibility_off';
-  });
 }
 
 createPortalBtn.addEventListener('click', function () {
