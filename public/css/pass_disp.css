@@ -48,8 +48,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 5px;
+  gap: 10px;
   box-sizing: border-box;
+  transition: all 0.1s;
 }
 
 .cred_card_input_container {
@@ -68,20 +69,11 @@
 }
 
 .cred_delete_btn {
-  position: relative;
-  height: 100%;
-  background-color: #121b29;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
+  padding: 4px;
 }
 
-.cred_delete_btn:hover {
-  background-color: #182436;
-  transform: scale(1);
+.cred_delete_btn:hover .btn_icon {
+  color: rgb(255, 40, 40);
 }
 
 #pass_list_hldr {

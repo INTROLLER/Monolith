@@ -3,6 +3,8 @@ const toolsContainer = document.querySelector('#tools_container');
 const loginInput = document.querySelector('#login_input');
 const loginVisToggler = document.querySelector('#login_vis_toggler');
 const passVisToggler = document.querySelector('#pass_vis_toggler');
+const copyLoginBtn = document.querySelector('#copy_login_btn');
+const copyPassBtn = document.querySelector('#copy_pass_btn');
 const passwordInput = document.querySelector('#password_input');
 const generateBtn = document.querySelector('#generate_btn');
 
@@ -98,10 +100,10 @@ function handleSumbitPortalEditBtn(btn) {
     input.style.borderBottom = 'none';
     input.style.removeProperty('caret-color');
 
-    editBtn.style.display = 'flex';
-    deleteBtn.style.display = 'flex';
-    acceptBtn.style.display = 'none';
-    cancelBtn.style.display = 'none';
+    editBtn.removeAttribute('style');
+    deleteBtn.removeAttribute('style');
+    acceptBtn.removeAttribute('style');
+    cancelBtn.removeAttribute('style');
 
     card.id = newPortalName;
     option.value = newPortalName;
@@ -126,10 +128,10 @@ function handleCancelPortalEditBtn(btn) {
     input.style.borderBottom = 'none';
     input.style.removeProperty('caret-color');
 
-    editBtn.style.display = 'flex';
-    deleteBtn.style.display = 'flex';
-    acceptBtn.style.display = 'none';
-    cancelBtn.style.display = 'none';
+    editBtn.removeAttribute('style');
+    deleteBtn.removeAttribute('style');
+    acceptBtn.removeAttribute('style');
+    cancelBtn.removeAttribute('style'); 
 
     input.value = portalName;
   });
@@ -193,10 +195,10 @@ function handlePortalInputSubmit(input) {
       input.style.borderBottom = 'none';
       input.style.removeProperty('caret-color');
 
-      editBtn.style.display = 'flex';
-      deleteBtn.style.display = 'flex';
-      acceptBtn.style.display = 'none';
-      cancelBtn.style.display = 'none';
+      editBtn.removeAttribute('style');
+      deleteBtn.removeAttribute('style');
+      acceptBtn.removeAttribute('style');
+      cancelBtn.removeAttribute('style');
 
       card.id = newPortalName;
       option.value = newPortalName;
@@ -208,14 +210,11 @@ function handlePortalInputSubmit(input) {
 
 function handleEditCredBtn(btn) {
   btn.addEventListener('click', (e) => {
-    const card = btn.closest('.cred_card');
     const inputHldr = btn.closest('.input_hldr');
     const input = inputHldr.querySelector('.data_input');
     const editBtn = btn
-    const deleteBtn = card.querySelector('.cred_delete_btn');
     const acceptBtn = inputHldr.querySelector('.cred_submit_edit_btn');
     const cancelBtn = inputHldr.querySelector('.cred_cancel_edit_btn');
-    const visToggler = inputHldr.querySelector('.vis_toggler');
     const copyBtn = inputHldr.querySelector('.copy_btn');
 
     e.stopPropagation();
@@ -229,8 +228,6 @@ function handleEditCredBtn(btn) {
     inputHldr.dataset.oldValue = input.value;
     input.style.caretColor = input.style.color || '#fff';
     editBtn.style.display = 'none';
-    deleteBtn.style.display = 'none';
-    visToggler.style.display = 'none';
     copyBtn.style.display = 'none';
     acceptBtn.style.display = 'flex';
     cancelBtn.style.display = 'flex';
@@ -246,10 +243,8 @@ function handleSumbitCredEditBtn(btn) {
     const inputHldr = btn.closest('.input_hldr');
     const input = inputHldr.querySelector('.data_input');
     const editBtn = inputHldr.querySelector('.cred_edit_btn');
-    const deleteBtn = card.querySelector('.cred_delete_btn');
     const acceptBtn = inputHldr.querySelector('.cred_submit_edit_btn');
     const cancelBtn = inputHldr.querySelector('.cred_cancel_edit_btn');
-    const visToggler = inputHldr.querySelector('.vis_toggler');
     const copyBtn = inputHldr.querySelector('.copy_btn');
     const index = card.id;
     const newValue = input.value;
@@ -277,24 +272,19 @@ function handleSumbitCredEditBtn(btn) {
 
     inputHldr.removeAttribute('id');
     editBtn.removeAttribute('style');
-    deleteBtn.removeAttribute('style');
     acceptBtn.removeAttribute('style');
     cancelBtn.removeAttribute('style');
-    visToggler.removeAttribute('style');
     copyBtn.removeAttribute('style');
   });
 }
 
 function handleCancelCredEditBtn(btn) {
   btn.addEventListener('click', (e) => {
-    const card = btn.closest('.cred_card');
     const inputHldr = btn.closest('.input_hldr');
     const input = inputHldr.querySelector('.data_input');
     const editBtn = inputHldr.querySelector('.cred_edit_btn');
-    const deleteBtn = card.querySelector('.cred_delete_btn');
     const acceptBtn = inputHldr.querySelector('.cred_submit_edit_btn');
     const cancelBtn = inputHldr.querySelector('.cred_cancel_edit_btn');
-    const visToggler = inputHldr.querySelector('.vis_toggler');
     const copyBtn = inputHldr.querySelector('.copy_btn');
     const inputValue = input.value;
 
@@ -305,10 +295,8 @@ function handleCancelCredEditBtn(btn) {
 
     inputHldr.removeAttribute('id');
     editBtn.removeAttribute('style');
-    deleteBtn.removeAttribute('style');
     acceptBtn.removeAttribute('style');
     cancelBtn.removeAttribute('style');
-    visToggler.removeAttribute('style');
     copyBtn.removeAttribute('style');
 
     input.value = inputValue;
@@ -426,14 +414,15 @@ function handlePortalCard(card) {
         for (let i = 0; i < credsLength; i++) {
           const cardHtml = `
             <div id="${i}" class="cred_card" data-portal-name="${portalName}">
+              <button type="button" id="cred_delete_btn_${i}" class="cred_delete_btn transparent_btn"><i class="material-symbols-rounded btn_icon">delete_forever</i></button>
               <div class="cred_card_input_container">
                 <div class="input_hldr">
                   <div class="input_cover">
                     <i class="material-symbols-rounded input_icon">person</i>
                     <input type="text" id="login_input_${i}" class="data_input login_input" readonly>
+                    <button type="button" id="login_vis_toggler_${i}" class="vis_toggler transparent_btn"><i class="material-symbols-rounded btn_icon">visibility_off</i></button>
                   </div>
                   <button type="button" id="copy_login_btn_${i}" class="copy_btn transparent_btn"><i class="material-symbols-rounded btn_icon">content_copy</i></button>
-                  <button type="button" id="login_vis_toggler_${i}" class="vis_toggler transparent_btn"><i class="material-symbols-rounded btn_icon">visibility_off</i></button>
                   <button type="button" id="login_edit_btn_${i}" class="cred_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
                   <button type="button" id="login_submit_edit_btn_${i}" class="cred_submit_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
                   <button type="button" id="login_cancel_edit_btn_${i}" class="cred_cancel_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
@@ -442,15 +431,14 @@ function handlePortalCard(card) {
                   <div class="input_cover">
                     <i class="material-symbols-rounded input_icon">encrypted</i>
                     <input type="password" id="password_input_${i}" class="data_input pass_input" readonly>
+                    <button type="button" id="pass_vis_toggler_${i}" class="vis_toggler transparent_btn"><i class="material-symbols-rounded btn_icon">visibility</i></button>
                   </div>
                   <button type="button" id="copy_pass_btn_${i}" class="copy_btn transparent_btn"><i class="material-symbols-rounded btn_icon">content_copy</i></button>
-                  <button type="button" id="pass_vis_toggler_${i}" class="vis_toggler transparent_btn"><i class="material-symbols-rounded btn_icon">visibility</i></button>
                   <button type="button" id="pass_edit_btn_${i}" class="cred_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
                   <button type="button" id="pass_submit_edit_btn_${i}" class="cred_submit_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
                   <button type="button" id="pass_cancel_edit_btn_${i}" class="cred_cancel_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
                 </div>
               </div>
-              <button type="button" id="cred_delete_btn_${i}" class="cred_delete_btn advanced_btn"><i class="material-symbols-rounded btn_icon">delete_forever</i></button>
             </div>
           `
           passListHldr.insertAdjacentHTML('beforeend', cardHtml);
@@ -498,26 +486,6 @@ function adjustInputWidth(input) {
   input.addEventListener('input', setWidth);
 }
 
-window.onload = () => {
-  portalTitles.forEach((input) => {
-    adjustInputWidth(input);
-    handlePortalInputSubmit(input);
-  
-    input.addEventListener('click', (e) => e.stopPropagation());
-  });
-};
-
-portalAcceptBtns.forEach((btn) => {
-  handleSumbitPortalEditBtn(btn);
-});
-
-portalCancelBtns.forEach((btn) => {
-  handleCancelPortalEditBtn(btn);
-});
-
-handleVisToggler(loginVisToggler);
-handleVisToggler(passVisToggler);
-
 saveBtn.addEventListener('click', function () {
   const loginData = loginInput.value;
   const passwordData = passwordInput.value;
@@ -542,6 +510,8 @@ saveBtn.addEventListener('click', function () {
   })
   .then((response) => {
     response.json()
+    passwordInput.value = '';
+    loginInput.value = '';
     saveBtn.style.backgroundColor = '#2cd472';
     setTimeout(() => {
       saveBtn.removeAttribute('style');
@@ -635,6 +605,10 @@ generateBtn.addEventListener('click', () => {
   .then(response => response.json())
   .then((data) => {
     passwordInput.value = data.password;
+    generateBtn.style.backgroundColor = '#2cd472';
+    setTimeout(() => {
+      generateBtn.removeAttribute('style');
+    }, 100);
   })
   .catch((error) => console.error('Error:', error));
 })
@@ -664,9 +638,24 @@ complexityContainers.forEach((container) => {
   })
 })
 
+window.onload = () => {
+  portalTitles.forEach((input) => {
+    adjustInputWidth(input);
+    handlePortalInputSubmit(input);
+  
+    input.addEventListener('click', (e) => e.stopPropagation());
+  });
+};
+
+portalAcceptBtns.forEach(handleSumbitPortalEditBtn);
+portalCancelBtns.forEach(handleCancelPortalEditBtn)
 portalEditBtns.forEach(handleEditPortalBtn);
 portalDeleteBtns.forEach(handleDeletePortalBtn);
 portalCards.forEach(handlePortalCard);
+handleCopyBtn(copyLoginBtn);
+handleCopyBtn(copyPassBtn);
+handleVisToggler(loginVisToggler);
+handleVisToggler(passVisToggler);
 
 rangeSlider.addEventListener('input', () => updateBarDisplay(rangeSlider));
 
