@@ -10,39 +10,7 @@ const saveBtn = document.querySelector('#save_btn');
 const complexityContainers = document.querySelectorAll('.complexity_container')
 const lengthSlider = document.querySelector('#length_range');
 
-function handleCopyBtn(btn) {
-  btn.addEventListener('click', (e) => {
-    const input = btn.closest('.input_hldr').querySelector('.data_input');
-    const data = input.value;
-    const icon = btn.querySelector('i');
-
-    icon.style.color = '#2cd472';
-    navigator.clipboard.writeText(data);
-
-    setTimeout(() => {
-      icon.removeAttribute('style');
-    }, 100);
-  });
-}
-
-function handleVisToggler(btn) {
-  btn.addEventListener('click', (e) => {
-    const input = btn.closest('.input_hldr').querySelector('.data_input');
-    input.type = input.type === 'password' ? 'text' : 'password';
-    btn.querySelector('i').innerHTML = input.type === 'password' ? 'visibility' : 'visibility_off';
-  });
-}
-
-function updateBarDisplay(bar) {
-  const min = parseFloat(bar.min) || 0;
-  const max = parseFloat(bar.max) || 100;
-  const value = parseFloat(bar.value);
-
-  const percentage = ((value - min) / (max - min)) * 100;
-
-  bar.style.background = `linear-gradient(to right, #2cd472 0%, #2cd472 ${percentage}%, #121b29 ${percentage}%, #121b29 100%)`;
-  document.querySelector('#length_disp').innerHTML = bar.value;
-}
+import { handleCopyBtn, handleVisToggler, updateBarDisplay } from './main.js';
 
 saveBtn.addEventListener('click', function () {
   const loginData = loginInput.value;
@@ -109,8 +77,6 @@ complexityContainers.forEach((container) => {
 })
 
 lengthSlider.addEventListener('input', () => updateBarDisplay(lengthSlider));
-
-if (authListHldr.children.length <= 1) noPortalsHldr.style.display = 'flex';
 
 authPortalSelect.selectedIndex = 0;
 

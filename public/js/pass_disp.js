@@ -142,3 +142,5 @@ passDispClose.addEventListener('click', () => {
     };
   })
 })
+
+export { handleEditCredBtn, handleSumbitCredEditBtn, handleCancelCredEditBtn, handleDeleteCredBtn };

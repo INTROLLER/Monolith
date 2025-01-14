@@ -17,6 +17,7 @@ const passListHldr = document.querySelector('#pass_list_hldr');
 const noCredsHldr = document.querySelector('#no_creds_hldr');
 
 import { handleCopyBtn, handleVisToggler } from './main.js';
+import { handleEditCredBtn, handleSumbitCredEditBtn, handleCancelCredEditBtn, handleDeleteCredBtn } from './pass_disp.js';
 
 function handleEditPortalBtn(btn) {
   btn.addEventListener('click', (e) => {
@@ -234,7 +235,7 @@ function handlePortalCard(card) {
       document.querySelector('#pass_disp_title').innerHTML = portalName;
       const credsLength = Object.values(data)[0].length;
 
-      const renderedCreds = passListHldr.getElementsByClassName('cred_card')
+      const renderedCreds = passListHldr.querySelectorAll('.cred_card');
       const renderedCredsLength = renderedCreds.length
       for (let i = 0; i < renderedCredsLength; i++) {
         renderedCreds[i].remove();
@@ -395,6 +396,8 @@ window.onload = () => {
     input.addEventListener('click', (e) => e.stopPropagation());
   });
 };
+
+if (authListHldr.children.length <= 1) noPortalsHldr.style.display = 'flex';
 
 portalAcceptBtns.forEach(handleSumbitPortalEditBtn);
 portalCancelBtns.forEach(handleCancelPortalEditBtn)

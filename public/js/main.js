@@ -21,4 +21,15 @@ function handleVisToggler(btn) {
   });
 }
 
-export { handleCopyBtn, handleVisToggler };
+function updateBarDisplay(bar) {
+  const min = parseFloat(bar.min) || 0;
+  const max = parseFloat(bar.max) || 100;
+  const value = parseFloat(bar.value);
+
+  const percentage = ((value - min) / (max - min)) * 100;
+
+  bar.style.background = `linear-gradient(to right, #2cd472 0%, #2cd472 ${percentage}%, #121b29 ${percentage}%, #121b29 100%)`;
+  document.querySelector('#length_disp').innerHTML = bar.value;
+}
+
+export { handleCopyBtn, handleVisToggler, updateBarDisplay };
