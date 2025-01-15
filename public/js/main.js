@@ -32,4 +32,16 @@ function updateBarDisplay(bar) {
   document.querySelector('#length_disp').innerHTML = bar.value;
 }
 
+function setIcon() {
+  const icon = document.querySelector('#site_icon');
+  
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    icon.href = '/media/monolith_main_logo_light.png';
+  } else {
+    icon.href = '/media/monolith_main_logo_dark.png';
+  }
+}
+
+setIcon();
+window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', setIcon);
 export { handleCopyBtn, handleVisToggler, updateBarDisplay };
