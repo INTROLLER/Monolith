@@ -36,9 +36,9 @@ function setIcon() {
   const icon = document.querySelector('#site_icon');
   
   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    icon.href = '/media/monolith_main_logo_light.png';
+    icon.href = '/media/monolith_main_logo_light.ico';
   } else {
-    icon.href = '/media/monolith_main_logo_dark.png';
+    icon.href = '/media/monolith_main_logo_dark.ico';
   }
 }
 
