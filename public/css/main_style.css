@@ -154,3 +154,9 @@ input[readonly] {
   gap: 10px;
   color: rgb(119, 119, 119);
 }
+
+@media screen and (max-width: 1620px) {
+  #main_container {
+    width: 100dvw;
+  }
+}
