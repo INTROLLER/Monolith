@@ -328,6 +328,77 @@ function adjustInputWidth(input) {
   input.addEventListener('input', setWidth);
 }
 
+authPortalInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const authPortal = authPortalInput.value;
+
+    if (!authPortal || authPortal === "") return
+
+    if (!authPortal) {
+      createPortalBtn.style.backgroundColor = 'red';
+      setTimeout(() => {
+        createPortalBtn.removeAttribute('style');
+      }, 100);
+      return;
+    }
+
+    fetch('/api/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          auth: authPortal
+        }),
+    })
+    .then((response) => {
+      if (noPortalsHldr.style.display !== 'none') noPortalsHldr.style.display = 'none';
+
+      response.json()
+      createPortalBtn.style.backgroundColor = '#2cd472';
+      authPortalInput.value = '';
+      authPortalInput.focus();
+
+      const newCard = document.createElement('div');
+      newCard.id = authPortal;
+      newCard.classList.add('auth_portal_card');
+
+      newCard.innerHTML = `<div class="portal_name_hldr">
+                          <i class="material-symbols-rounded portal_card_icon">folder</i>
+                          <input type="text" class="portal_title" readonly value="${authPortal}">
+                          <div class="portal_btns_hldr">
+                              <button type="button" class="portal_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
+                              <button type="button" class="portal_delete_btn transparent_btn"><i class="material-symbols-rounded btn_icon">delete_forever</i></button>
+                              <button type="button" class="portal_submit_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
+                              <button type="button" class="portal_cancel_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
+                          </div>
+                          </div>
+                          <i class="material-symbols-rounded portal_card_arrow">arrow_forward_ios</i>
+                          `
+
+      authListHldr.appendChild(newCard);
+
+      const editBtn = newCard.querySelector('.portal_edit_btn');
+      const deleteBtn = newCard.querySelector('.portal_delete_btn');
+      const portalTitle = newCard.querySelector('.portal_title');
+
+      authPortalSelect.innerHTML += `
+        <option id="${authPortal}_option" value="${authPortal}">${authPortal}</option>
+      `
+
+      adjustInputWidth(portalTitle);
+      handlePortalInputSubmit(portalTitle);
+      portalTitle.addEventListener('click', (e) => e.stopPropagation());
+      handlePortalCard(newCard);
+      handleEditPortalBtn(editBtn);
+      handleDeletePortalBtn(deleteBtn);
+      
+      setTimeout(() => {
+        createPortalBtn.removeAttribute('style');
+      }, 100);
+    })
+    .catch((error) => console.error('Error:', error));
+  }
+})
+
 createPortalBtn.addEventListener('click', function () {
   const authPortal = authPortalInput.value;
 
