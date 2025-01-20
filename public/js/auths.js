@@ -117,12 +117,12 @@ function handleCancelPortalEditBtn(btn) {
 function handleDeletePortalBtn(btn) {
   btn.addEventListener('click', (e) => {
     const confirm = window.confirm('Are you sure you want to delete this portal?');
+
+    e.stopPropagation();
     if (!confirm) return;
 
     const card = btn.closest('.auth_portal_card');
     const portalName = card.id;
-
-    e.stopPropagation();
 
     fetch('/api/delete_portal', {
       method: 'DELETE',
@@ -135,7 +135,7 @@ function handleDeletePortalBtn(btn) {
     card.remove();
     const option = document.querySelector(`#auth_portal_select #${portalName}_option`);
     if (option) option.remove();
-    portalSelect.selectedIndex = 0;
+    authPortalSelect.selectedIndex = 0;
     if (authListHldr.children.length <= 1) noPortalsHldr.style.display = 'flex';
   });
 }
@@ -234,6 +234,7 @@ function handlePortalCard(card) {
 
       passDisp.style.display = 'flex';
       toolsContainer.style.display = 'none';
+
       document.querySelector('#pass_disp_title').innerHTML = portalName;
       const credsLength = Object.values(data)[0].length;
 
@@ -332,10 +333,9 @@ authPortalInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     const authPortal = authPortalInput.value;
 
-    if (!authPortal || authPortal === "") return
-
-    if (!authPortal) {
-      createPortalBtn.style.backgroundColor = 'red';
+    if (!authPortal || authPortal === "") {
+      createPortalBtn.style.backgroundColor = 'rgb(255, 40, 40)';
+      createPortalBtn.style.boxShadow = '0 0 5px 3px rgb(255, 40, 40)';
       setTimeout(() => {
         createPortalBtn.removeAttribute('style');
       }, 100);
@@ -354,6 +354,7 @@ authPortalInput.addEventListener('keydown', (e) => {
 
       response.json()
       createPortalBtn.style.backgroundColor = '#2cd472';
+      createPortalBtn.style.boxShadow = '0 0 5px 3px #2cd472';
       authPortalInput.value = '';
       authPortalInput.focus();
 
@@ -402,10 +403,9 @@ authPortalInput.addEventListener('keydown', (e) => {
 createPortalBtn.addEventListener('click', function () {
   const authPortal = authPortalInput.value;
 
-  if (!authPortal || authPortal === "") return
-
-  if (!authPortal) {
-    createPortalBtn.style.backgroundColor = 'red';
+  if (!authPortal || authPortal === "") {
+    createPortalBtn.style.backgroundColor = 'rgb(255, 40, 40)';
+    createPortalBtn.style.boxShadow = '0 0 5px 3px rgb(255, 40, 40)';
     setTimeout(() => {
       createPortalBtn.removeAttribute('style');
     }, 100);
@@ -424,6 +424,7 @@ createPortalBtn.addEventListener('click', function () {
 
     response.json()
     createPortalBtn.style.backgroundColor = '#2cd472';
+    createPortalBtn.style.boxShadow = '0 0 5px 3px #2cd472';
     authPortalInput.value = '';
     authPortalInput.focus();
 

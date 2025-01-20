@@ -18,7 +18,8 @@ saveBtn.addEventListener('click', function () {
   const authPortal = authPortalSelect.value;
 
   if (!passwordData || !authPortal) {
-    saveBtn.style.backgroundColor = 'red';
+    saveBtn.style.backgroundColor = 'rgb(255, 40, 40)';
+    saveBtn.style.boxShadow = '0 0 5px 3px rgb(255, 40, 40)';
     setTimeout(() => {
       saveBtn.removeAttribute('style');
     }, 100);
@@ -39,6 +40,7 @@ saveBtn.addEventListener('click', function () {
     passwordInput.value = '';
     loginInput.value = '';
     saveBtn.style.backgroundColor = '#2cd472';
+    saveBtn.style.boxShadow = '0 0 5px 3px #2cd472';
     setTimeout(() => {
       saveBtn.removeAttribute('style');
     }, 100);
@@ -63,6 +65,7 @@ generateBtn.addEventListener('click', () => {
   .then((data) => {
     passwordInput.value = data.password;
     generateBtn.style.backgroundColor = '#2cd472';
+    generateBtn.style.boxShadow = '0 0 5px 3px #2cd472';
     setTimeout(() => {
       generateBtn.removeAttribute('style');
     }, 100);

@@ -69,7 +69,7 @@ body {
   padding: 8px 15px;
   font-size: 15px;
   font-weight: 500;
-  transition: all 0.1s;
+  transition: all 0.1s, box-shadow 0.1s ease-out, background-color 0.1s ease-out;
 }
 
 .advanced_btn:hover {
@@ -78,6 +78,10 @@ body {
 
 .advanced_btn:active {
   transform: scale(1);
+}
+
+.advanced_btn i {
+  color: #2cd472;
 }
 
 .input_hldr {
