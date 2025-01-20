@@ -161,6 +161,12 @@ input[readonly] {
 
 @media screen and (max-width: 1620px) {
   #main_container {
-    width: 100dvw;
+    width: 85dvw;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  #main_container {
+    width: 98dvw;
   }
 }
