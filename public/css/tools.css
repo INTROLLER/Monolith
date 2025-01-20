@@ -125,6 +125,8 @@
   box-sizing: border-box;
   width: auto;
   transition: transform 0.1s;
+  justify-content: start;
+  align-items: center;
 }
 
 .complexity_container:hover {
@@ -140,6 +142,10 @@
   margin: 0;
   font-family: 'Rubik', sans-serif;
   font-weight: 400;
+  color: white;
+}
+
+.complexity_icon {
   color: white;
 }
 
