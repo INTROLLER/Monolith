@@ -10,10 +10,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  gap: 10px;
+  gap: 15px;
 }
 
 #data_input_section {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  gap: 5px;
+}
+
+#length_container {
   position: relative;
   width: 100%;
   display: flex;
@@ -71,37 +81,68 @@
   margin: 0;
   background-color: #121b29;
   border-radius: 10px;
-  height: 6px;
+  height: 5px;
   position: relative;
   z-index: 1;
-  margin-bottom: 10px;
+}
+
+#length_range:hover::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+
+#length_range:active::-webkit-slider-thumb {
+  transform: scale(0.9);
+}
+
+#length_range:hover::-moz-range-thumb {
+  transform: scale(1.2);
+}
+
+#length_range:active::-moz-range-thumb {
+  transform: scale(0.9);
+}
+
+#length_range:hover::-ms-thumb {
+  transform: scale(1.2);
+}
+
+#length_range:active::-ms-thumb {
+  transform: scale(0.9);
 }
 
 #length_range::-webkit-slider-thumb {
+  -webkit-appearance: none;
   position: relative;
   z-index: 2;
   height: 18px;
   width: 18px;
   border-radius: 50%;
   border: none;
+  transition: all 0.1s;
 }
 
 #length_range::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
   position: relative;
   z-index: 2;
   height: 18px;
   width: 18px;
   border-radius: 50%;
   border: none;
+  transition: all 0.1s;
 }
 
 #length_range::-ms-thumb {
+  -webkit-appearance: none;
+  appearance: none;
   position: relative;
   z-index: 2;
   height: 18px;
   width: 18px;
   border-radius: 50%;
   border: none;
+  transition: all 0.1s;
 }
 
 #main_complexity_container {
@@ -109,7 +150,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 10px;
-  width: auto;
+  width: 100%;
   align-items: center;
   justify-content: center;
 }
@@ -130,11 +171,11 @@
 }
 
 .complexity_container:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .complexity_container:active {
-  transform: scale(1);
+  transform: scale(0.97);
 }
 
 .complexity_container p {

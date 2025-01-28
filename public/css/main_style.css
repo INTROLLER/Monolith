@@ -47,7 +47,7 @@ body {
 }
 
 .transparent_btn:active {
-  transform: scale(1);
+  transform: scale(0.95);
 }
 
 .advanced_btn {
@@ -77,7 +77,7 @@ body {
 }
 
 .advanced_btn:active {
-  transform: scale(1);
+  transform: scale(0.95);
 }
 
 .advanced_btn i {
@@ -117,6 +117,7 @@ body {
   aspect-ratio: 1 / 1;
   height: 100%;
   color: white;
+  font-size: 22px;
 }
 
 .data_input {
