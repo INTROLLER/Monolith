@@ -8,7 +8,7 @@ function handleCopyBtn(btn) {
     const data = input.value;
     const icon = btn.querySelector('i');
 
-    animateButton(icon, '#2cd472', true);
+    animateFadeEffect(icon, '#2cd472', true);
     navigator.clipboard.writeText(data);
   });
 }
@@ -42,7 +42,7 @@ function setIcon() {
   }
 }
 
-function animateButton(btn, color, isTransparent = false) {
+function animateFadeEffect(btn, color, isTransparent = false) {
   clearTimeout(AnimTimeout);
   clearTimeout(clearAnimTimeout);
   btn.removeAttribute('style');
@@ -73,4 +73,4 @@ function animateButton(btn, color, isTransparent = false) {
 
 setIcon();
 window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', setIcon);
-export { handleCopyBtn, handleVisToggler, updateBarDisplay, animateButton };
+export { handleCopyBtn, handleVisToggler, updateBarDisplay, animateFadeEffect };

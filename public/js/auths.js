@@ -20,7 +20,7 @@ const noCredsHldr = document.querySelector('#no_creds_hldr');
 
 const authSearch = document.querySelector('#auth_search_input');
 
-import { handleCopyBtn, handleVisToggler, animateButton } from './main.js';
+import { handleCopyBtn, handleVisToggler, animateFadeEffect } from './main.js';
 import { handleEditCredBtn, handleSumbitCredEditBtn, handleCancelCredEditBtn, handleDeleteCredBtn, handleCredInputSubmit} from './pass_disp.js';
 
 function handleEditPortalBtn(btn) {
@@ -336,7 +336,7 @@ authPortalInput.addEventListener('keydown', (e) => {
     const authPortal = authPortalInput.value;
 
     if (!authPortal || authPortal === "") {
-      animateButton(createPortalBtn, 'rgb(255, 40, 40)');
+      animateFadeEffect(createPortalBtn, 'rgb(255, 40, 40)');
       return;
     }
 
@@ -351,7 +351,7 @@ authPortalInput.addEventListener('keydown', (e) => {
       if (noPortalsHldr.style.display !== 'none') noPortalsHldr.style.display = 'none';
 
       response.json()
-      animateButton(createPortalBtn, '#2cd472');
+      animateFadeEffect(createPortalBtn, '#2cd472');
 
       authPortalInput.value = '';
       authPortalInput.focus();
@@ -398,7 +398,7 @@ createPortalBtn.addEventListener('click', function () {
   const authPortal = authPortalInput.value;
 
   if (!authPortal || authPortal === "") {
-    animateButton(createPortalBtn, 'rgb(255, 40, 40)');
+    animateFadeEffect(createPortalBtn, 'rgb(255, 40, 40)');
     return;
   }
 
@@ -413,7 +413,7 @@ createPortalBtn.addEventListener('click', function () {
     if (noPortalsHldr.style.display !== 'none') noPortalsHldr.style.display = 'none';
 
     response.json()
-    animateButton(createPortalBtn, '#2cd472');
+    animateFadeEffect(createPortalBtn, '#2cd472');
 
     authPortalInput.value = '';
     authPortalInput.focus();
