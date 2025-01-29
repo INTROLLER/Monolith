@@ -20,7 +20,7 @@ const noCredsHldr = document.querySelector('#no_creds_hldr');
 
 const authSearch = document.querySelector('#auth_search_input');
 
-import { handleCopyBtn, handleVisToggler } from './main.js';
+import { handleCopyBtn, handleVisToggler, animateButton } from './main.js';
 import { handleEditCredBtn, handleSumbitCredEditBtn, handleCancelCredEditBtn, handleDeleteCredBtn, handleCredInputSubmit} from './pass_disp.js';
 
 function handleEditPortalBtn(btn) {
@@ -336,11 +336,7 @@ authPortalInput.addEventListener('keydown', (e) => {
     const authPortal = authPortalInput.value;
 
     if (!authPortal || authPortal === "") {
-      createPortalBtn.style.backgroundColor = 'rgb(255, 40, 40)';
-      createPortalBtn.style.boxShadow = '0 0 5px 3px rgb(255, 40, 40)';
-      setTimeout(() => {
-        createPortalBtn.removeAttribute('style');
-      }, 100);
+      animateButton(createPortalBtn, 'rgb(255, 40, 40)');
       return;
     }
 
@@ -355,8 +351,8 @@ authPortalInput.addEventListener('keydown', (e) => {
       if (noPortalsHldr.style.display !== 'none') noPortalsHldr.style.display = 'none';
 
       response.json()
-      createPortalBtn.style.backgroundColor = '#2cd472';
-      createPortalBtn.style.boxShadow = '0 0 5px 3px #2cd472';
+      animateButton(createPortalBtn, '#2cd472');
+
       authPortalInput.value = '';
       authPortalInput.focus();
 
@@ -393,10 +389,6 @@ authPortalInput.addEventListener('keydown', (e) => {
       handlePortalCard(newCard);
       handleEditPortalBtn(editBtn);
       handleDeletePortalBtn(deleteBtn);
-      
-      setTimeout(() => {
-        createPortalBtn.removeAttribute('style');
-      }, 100);
     })
     .catch((error) => console.error('Error:', error));
   }
@@ -406,11 +398,7 @@ createPortalBtn.addEventListener('click', function () {
   const authPortal = authPortalInput.value;
 
   if (!authPortal || authPortal === "") {
-    createPortalBtn.style.backgroundColor = 'rgb(255, 40, 40)';
-    createPortalBtn.style.boxShadow = '0 0 5px 3px rgb(255, 40, 40)';
-    setTimeout(() => {
-      createPortalBtn.removeAttribute('style');
-    }, 100);
+    animateButton(createPortalBtn, 'rgb(255, 40, 40)');
     return;
   }
 
@@ -425,8 +413,8 @@ createPortalBtn.addEventListener('click', function () {
     if (noPortalsHldr.style.display !== 'none') noPortalsHldr.style.display = 'none';
 
     response.json()
-    createPortalBtn.style.backgroundColor = '#2cd472';
-    createPortalBtn.style.boxShadow = '0 0 5px 3px #2cd472';
+    animateButton(createPortalBtn, '#2cd472');
+
     authPortalInput.value = '';
     authPortalInput.focus();
 
@@ -463,10 +451,6 @@ createPortalBtn.addEventListener('click', function () {
     handlePortalCard(newCard);
     handleEditPortalBtn(editBtn);
     handleDeletePortalBtn(deleteBtn);
-    
-    setTimeout(() => {
-      createPortalBtn.removeAttribute('style');
-    }, 100);
   })
   .catch((error) => console.error('Error:', error));
 });

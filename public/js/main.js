@@ -1,15 +1,15 @@
+const ANIMDURATION = 500;
+let AnimTimeout;
+let clearAnimTimeout;
+
 function handleCopyBtn(btn) {
   btn.addEventListener('click', (e) => {
     const input = btn.closest('.input_hldr').querySelector('.data_input');
     const data = input.value;
     const icon = btn.querySelector('i');
 
-    icon.style.color = '#2cd472';
+    animateButton(icon, '#2cd472', true);
     navigator.clipboard.writeText(data);
-
-    setTimeout(() => {
-      icon.removeAttribute('style');
-    }, 100);
   });
 }
 
@@ -42,6 +42,35 @@ function setIcon() {
   }
 }
 
+function animateButton(btn, color, isTransparent = false) {
+  clearTimeout(AnimTimeout);
+  clearTimeout(clearAnimTimeout);
+  btn.removeAttribute('style');
+
+  btn.style.transition = 'all 0.1s';
+  if (!isTransparent) {
+    btn.style.backgroundColor = color;
+    btn.style.boxShadow = `0 0 20px 0.5px ${color}`;
+  } else {
+    btn.style.color = color;
+  }
+
+  AnimTimeout = setTimeout(() => {
+    if (isTransparent) {
+      btn.style.transition = `all 0.1s, color 0.${ANIMDURATION}s linear`;
+      btn.style.color = 'white';
+    } else {
+      btn.style.transition = `all 0.1s, box-shadow 0.${ANIMDURATION}s linear, background-color 0.${ANIMDURATION}s linear`;
+      btn.style.boxShadow = 'none';
+      btn.style.backgroundColor = '#121b29';
+    }
+
+    clearAnimTimeout = setTimeout(() => {
+      btn.removeAttribute('style');
+    }, ANIMDURATION);
+  }, 100);
+}
+
 setIcon();
 window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', setIcon);
-export { handleCopyBtn, handleVisToggler, updateBarDisplay };
+export { handleCopyBtn, handleVisToggler, updateBarDisplay, animateButton };
