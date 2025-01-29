@@ -18,6 +18,8 @@ const passDisp = document.querySelector('#pass_disp_container');
 const passListHldr = document.querySelector('#pass_list_hldr');
 const noCredsHldr = document.querySelector('#no_creds_hldr');
 
+const authSearch = document.querySelector('#auth_search_input');
+
 import { handleCopyBtn, handleVisToggler } from './main.js';
 import { handleEditCredBtn, handleSumbitCredEditBtn, handleCancelCredEditBtn, handleDeleteCredBtn, handleCredInputSubmit} from './pass_disp.js';
 
@@ -467,6 +469,18 @@ createPortalBtn.addEventListener('click', function () {
     }, 100);
   })
   .catch((error) => console.error('Error:', error));
+});
+
+authSearch.addEventListener('input', () => {
+  const searchValue = authSearch.value.toLowerCase();
+
+  authListHldr.querySelectorAll('.auth_portal_card').forEach((card) => {
+    if (card.id.toLowerCase().includes(searchValue)) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
 });
 
 window.onload = () => {
