@@ -40,6 +40,7 @@ body {
   background: none;
   outline: none;
   transition: transform 0.1s;
+  padding: 3px;
 }
 
 .transparent_btn:hover {

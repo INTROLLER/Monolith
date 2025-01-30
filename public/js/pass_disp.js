@@ -5,6 +5,8 @@ const passDispClose = document.querySelector('#pass_disp_close');
 const passListHldr = document.querySelector('#pass_list_hldr');
 const noCredsHldr = document.querySelector('#no_creds_hldr');
 
+const passSearch = document.querySelector('#pass_search_input');
+
 function handleEditCredBtn(btn) {
   btn.addEventListener('click', (e) => {
     const inputHldr = btn.closest('.input_hldr');
@@ -183,6 +185,19 @@ passDispClose.addEventListener('click', () => {
       return;
     };
   })
+})
+
+passSearch.addEventListener('input', () => {
+  const searchValue = passSearch.value.toLowerCase();
+  const allCards = document.querySelectorAll('.cred_card');
+
+  allCards.forEach((card) => {
+    if (card.querySelector('.login_input').value.toLowerCase().includes(searchValue)) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
 })
 
 export { handleEditCredBtn, handleSumbitCredEditBtn, handleCancelCredEditBtn, handleDeleteCredBtn, handleCredInputSubmit };

@@ -252,7 +252,7 @@ function handlePortalCard(card) {
         for (let i = 0; i < credsLength; i++) {
           const cardHtml = `
             <div id="${i}" class="cred_card" data-portal-name="${portalName}">
-              <button type="button" id="cred_delete_btn_${i}" class="cred_delete_btn transparent_btn"><i class="material-symbols-rounded btn_icon">delete_forever</i></button>
+              <button type="button" id="cred_delete_btn_${i}" class="cred_delete_btn transparent_btn"><i class="material-symbols-rounded btn_icon">do_not_disturb_on</i></button>
               <div class="cred_card_input_container">
                 <div class="input_hldr">
                   <div class="input_cover">

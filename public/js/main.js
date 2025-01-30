@@ -22,14 +22,25 @@ function handleVisToggler(btn) {
 }
 
 function updateBarDisplay(bar) {
+  const lengthDisp = document.querySelector('#length_disp');
   const min = parseFloat(bar.min) || 0;
   const max = parseFloat(bar.max) || 100;
   const value = parseFloat(bar.value);
 
   const percentage = ((value - min) / (max - min)) * 100;
 
-  bar.style.background = `linear-gradient(to right, #2cd472 0%, #2cd472 ${percentage}%, #121b29 ${percentage}%, #121b29 100%)`;
-  document.querySelector('#length_disp').innerHTML = bar.value;
+  let color = '#2cd472';
+
+  if (value <= max / 2) {
+    color = '#FFA500';
+  }
+  if (value <= max / 4) {
+    color = '#FF0000';
+  }
+
+  bar.style.background = `linear-gradient(to right, ${color} 0%, ${color} ${percentage}%, #121b29 ${percentage}%, #121b29 100%)`;
+  lengthDisp.style.color = color;
+  lengthDisp.innerHTML = bar.value;
 }
 
 function setIcon() {

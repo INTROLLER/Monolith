@@ -47,7 +47,10 @@ generateBtn.addEventListener('click', () => {
   const useSymbols = document.querySelector('#symbols_checkbox').checked;
   const length = lengthSlider.value;
 
-  if (!useUpper && !useLower && !useNumbers && !useSymbols) return;
+  if (!useUpper && !useLower && !useNumbers && !useSymbols) {
+    animateFadeEffect(generateBtn, 'rgb(255, 40, 40)');
+    return;
+  };
   
   fetch(`/api/generate?length=${length}&lowercase=${useLower}&uppercase=${useUpper}&numbers=${useNumbers}&symbols=${useSymbols}`, {
     method: 'GET',
@@ -62,12 +65,16 @@ generateBtn.addEventListener('click', () => {
 })
 
 complexityContainers.forEach((container) => {
+  const checkbox = container.getElementsByTagName('input')[0];
   container.addEventListener('click', () => {
-    const checkbox = container.getElementsByTagName('input')[0];
     if (!checkbox.checked) animateFadeEffect(container, '#2cd472', false);
     else animateFadeEffect(container, 'rgb(255, 40, 40)', false);
+    container.classList.toggle('inactive_complexity');
     checkbox.checked = !checkbox.checked
   })
+
+  if (checkbox.checked) container.classList.remove('inactive_complexity');
+  else container.classList.add('inactive_complexity');;
 })
 
 lengthSlider.addEventListener('input', () => updateBarDisplay(lengthSlider));

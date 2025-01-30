@@ -26,19 +26,16 @@
   transition: all 0.1s;
 }
 
-#pass_disp_close {
-  position: relative;
-  cursor: pointer;
-  color: white;
-  transition: transform 0.1s;
-  z-index: 1;
-  background-color: #182436;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
+#pass_disp_close .btn_icon {
+  font-size: 33px;
+}
+
+#pass_disp_close:hover {
+  transform: scale(1.15);
+}
+
+#pass_disp_close:active {
+  transform: scale(0.95);
 }
 
 .cred_card {

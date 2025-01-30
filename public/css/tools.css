@@ -42,6 +42,7 @@
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
+  font-weight: 600;
 }
 
 #length_label {
@@ -84,6 +85,7 @@
   height: 5px;
   position: relative;
   z-index: 1;
+  transition: all 0.1s;
 }
 
 #length_range:hover::-webkit-slider-thumb {
@@ -168,6 +170,10 @@
   transition: transform 0.1s;
   justify-content: start;
   align-items: center;
+}
+
+.inactive_complexity {
+  outline: 1px solid rgb(255, 40, 40);
 }
 
 .complexity_container:hover {
