@@ -25,14 +25,14 @@ import { handleEditCredBtn, handleSumbitCredEditBtn, handleCancelCredEditBtn, ha
 
 function handleEditPortalBtn(btn) {
   btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    
     const card = btn.closest('.auth_portal_card');
     const input = card.querySelector('.portal_title');
     const editBtn = card.querySelector('.portal_edit_btn');
     const deleteBtn = card.querySelector('.portal_delete_btn');
     const acceptBtn = card.querySelector('.portal_submit_edit_btn');
     const cancelBtn = card.querySelector('.portal_cancel_edit_btn');
-
-    e.stopPropagation();
 
     editBtn.style.display = 'none';
     deleteBtn.style.display = 'none';
@@ -49,6 +49,8 @@ function handleEditPortalBtn(btn) {
 
 function handleSumbitPortalEditBtn(btn) {
   btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
     const card = btn.closest('.auth_portal_card');
     const input = card.querySelector('.portal_title');
     const editBtn = card.querySelector('.portal_edit_btn');
@@ -58,8 +60,6 @@ function handleSumbitPortalEditBtn(btn) {
     const portalName = card.id;
     const option = authPortalSelect.querySelector(`#${portalName}_option`);
     const newPortalName = input.value;
-
-    e.stopPropagation();
 
     if (!newPortalName || newPortalName === "") return;
     else if (newPortalName !== portalName) {
@@ -93,6 +93,8 @@ function handleSumbitPortalEditBtn(btn) {
 
 function handleCancelPortalEditBtn(btn) {
   btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
     const card = btn.closest('.auth_portal_card');
     const input = card.querySelector('.portal_title');
     const editBtn = card.querySelector('.portal_edit_btn');
@@ -100,8 +102,6 @@ function handleCancelPortalEditBtn(btn) {
     const acceptBtn = card.querySelector('.portal_submit_edit_btn');
     const cancelBtn = card.querySelector('.portal_cancel_edit_btn');
     const portalName = card.id;
-
-    e.stopPropagation();
 
     input.setAttribute('readonly', true);
     input.style.borderBottom = 'none';
@@ -113,14 +113,15 @@ function handleCancelPortalEditBtn(btn) {
     cancelBtn.removeAttribute('style'); 
 
     input.value = portalName;
+    adjustInputWidth(input);
   });
 }
 
 function handleDeletePortalBtn(btn) {
   btn.addEventListener('click', (e) => {
-    const confirm = window.confirm('Are you sure you want to delete this portal?');
-
     e.stopPropagation();
+
+    const confirm = window.confirm('Are you sure you want to delete this portal?');
     if (!confirm) return;
 
     const card = btn.closest('.auth_portal_card');
@@ -153,8 +154,6 @@ function handlePortalInputSubmit(input) {
       const portalName = card.id;
       const option = authPortalSelect.querySelector(`#${portalName}_option`);
       const newPortalName = input.value;
-
-      e.stopPropagation();
 
       if (!newPortalName || newPortalName === "") return;
       else if (newPortalName !== portalName) {

@@ -9,14 +9,14 @@ const passSearch = document.querySelector('#pass_search_input');
 
 function handleEditCredBtn(btn) {
   btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
     const inputHldr = btn.closest('.input_hldr');
     const input = inputHldr.querySelector('.data_input');
     const editBtn = btn
     const acceptBtn = inputHldr.querySelector('.cred_submit_edit_btn');
     const cancelBtn = inputHldr.querySelector('.cred_cancel_edit_btn');
     const copyBtn = inputHldr.querySelector('.copy_btn');
-
-    e.stopPropagation();
 
     if (input.classList.contains('pass_input')) {
       inputHldr.dataset.type = 'password';
@@ -38,6 +38,8 @@ function handleEditCredBtn(btn) {
 
 function handleSumbitCredEditBtn(btn) {
   btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
     const card = btn.closest('.cred_card');
     const inputHldr = btn.closest('.input_hldr');
     const input = inputHldr.querySelector('.data_input');
@@ -47,8 +49,6 @@ function handleSumbitCredEditBtn(btn) {
     const copyBtn = inputHldr.querySelector('.copy_btn');
     const index = card.id;
     const newValue = input.value;
-
-    e.stopPropagation();
 
     if (!newValue || newValue === "") return;
     else if (newValue !== inputHldr.dataset.oldValue) {
@@ -79,15 +79,14 @@ function handleSumbitCredEditBtn(btn) {
 
 function handleCancelCredEditBtn(btn) {
   btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
     const inputHldr = btn.closest('.input_hldr');
     const input = inputHldr.querySelector('.data_input');
     const editBtn = inputHldr.querySelector('.cred_edit_btn');
     const acceptBtn = inputHldr.querySelector('.cred_submit_edit_btn');
     const cancelBtn = inputHldr.querySelector('.cred_cancel_edit_btn');
     const copyBtn = inputHldr.querySelector('.copy_btn');
-    const inputValue = input.value;
-
-    e.stopPropagation();
 
     input.setAttribute('readonly', true);
     input.style.removeProperty('caret-color');
@@ -98,19 +97,19 @@ function handleCancelCredEditBtn(btn) {
     cancelBtn.removeAttribute('style');
     copyBtn.removeAttribute('style');
 
-    input.value = inputValue;
+    input.value = inputHldr.dataset.oldValue;
   });
 }
 
 function handleDeleteCredBtn(btn) {
   btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
     const confirm = window.confirm('Are you sure you want to delete this credential?');
     if (!confirm) return;
 
     const card = btn.closest('.cred_card');
     const index = card.id;
-
-    e.stopPropagation();
 
     fetch('/api/delete_credential', {
       method: 'DELETE',
@@ -137,8 +136,6 @@ function handleCredInputSubmit(input) {
       const copyBtn = inputHldr.querySelector('.copy_btn');
       const index = card.id;
       const newValue = input.value;
-
-      e.stopPropagation();
 
       if (!newValue || newValue === "") return;
       else if (newValue !== inputHldr.dataset.oldValue) {
