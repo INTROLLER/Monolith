@@ -320,11 +320,10 @@ function adjustInputWidth(input) {
     tempSpan.style.position = 'absolute'; // Prevent affecting layout
     tempSpan.style.whiteSpace = 'pre'; // Preserve spaces exactly as input
     tempSpan.style.font = getComputedStyle(input).font; // Match font styles
-    tempSpan.textContent = input.value; // Use value
-
-    console.log(input.value);
+    tempSpan.innerText = input.getAttribute('value'); // Use value
+    input.value = input.getAttribute('value');
+    
     document.body.appendChild(tempSpan);
-    console.log(tempSpan.offsetWidth);
     input.style.width = `${tempSpan.offsetWidth + 2}px`; // Add slight buffer
     document.body.removeChild(tempSpan);
   };

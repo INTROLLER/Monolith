@@ -105,6 +105,19 @@ document.addEventListener('click', (e) => {
   }
 });
 
+window.onload = () => {
+
+  document.querySelectorAll('.dropdown_menu').forEach((menu) => {
+    let rect = menu.getBoundingClientRect();
+    console.log((
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&     
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    ))
+  })
+}
+
 updateBarDisplay(lengthSlider);
 handleCopyBtn(copyLoginBtn);
 handleCopyBtn(copyPassBtn);
