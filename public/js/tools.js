@@ -5,7 +5,7 @@ const copyLoginBtn = document.querySelector('#copy_login_btn');
 const copyPassBtn = document.querySelector('#copy_pass_btn');
 const passwordInput = document.querySelector('#password_input');
 const generateBtn = document.querySelector('#generate_btn');
-const authPortalSelect = document.querySelector('#auth_portal_select');
+const portalDropdownText = document.querySelector('#portal_dropdown_disp_text');
 const saveBtn = document.querySelector('#save_btn');
 const complexityContainers = document.querySelectorAll('.complexity_container')
 const lengthSlider = document.querySelector('#length_range');
@@ -15,7 +15,7 @@ import { handleCopyBtn, handleVisToggler, updateBarDisplay, animateFadeEffect } 
 saveBtn.addEventListener('click', function () {
   const loginData = loginInput.value;
   const passwordData = passwordInput.value;
-  const authPortal = authPortalSelect.value;
+  const authPortal = portalDropdownText.textContent;
 
   if (!passwordData || !authPortal) {
     animateFadeEffect(saveBtn, 'rgb(255, 40, 40)');
@@ -79,7 +79,31 @@ complexityContainers.forEach((container) => {
 
 lengthSlider.addEventListener('input', () => updateBarDisplay(lengthSlider));
 
-authPortalSelect.selectedIndex = 0;
+document.querySelectorAll('.dropdown').forEach((dropdown) => {
+  dropdown.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+  });
+})
+
+document.querySelectorAll('.dropdown_option').forEach((option) => {
+  option.addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.querySelector('#portal_dropdown').classList.remove('open');
+    option.closest('.dropdown').querySelector('.dropdown_disp_text').textContent = option.querySelector('.dropdown_option_value').textContent;
+  });
+})
+
+document.addEventListener('click', (e) => {
+  document.querySelectorAll('.dropdown').forEach((dropdown) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove('open');
+    }
+  })
+  if (!document.querySelector('#portal_dropdown').contains(e.target)) {
+    document.querySelector('#portal_dropdown').classList.remove('open');
+  }
+});
 
 updateBarDisplay(lengthSlider);
 handleCopyBtn(copyLoginBtn);

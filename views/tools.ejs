@@ -19,43 +19,53 @@
           <button type="button" id="generate_btn" class="advanced_btn"><i class="material-symbols-rounded btn_icon">casino</i> Generate</button>
       </div>
   </div>
-  <div id="length_container">
-    <div id="length_disp_container">
-        <h3 id="length_label">Character length</h3>
-        <p id="length_disp">...</p>
+  <hr>
+  <div id="generator_settings_container">
+    <div id="length_container">
+        <div id="length_disp_container">
+            <h3 id="length_label">Character length</h3>
+            <p id="length_disp">...</p>
+        </div>
+        <input type="range" id="length_range" min="15" max="100" value="100">
+      </div>
+      <div id="main_complexity_container">
+        <span class="complexity_container">
+            <input type="checkbox" name="" id="uppercase_checkbox" class="complexity_checkbox" checked>
+            <i class="material-symbols-rounded complexity_icon">uppercase</i>
+            <p class="complexity_desc">Uppercase</p>
+        </span>
+        <span class="complexity_container">
+            <input type="checkbox" name="" id="lowercase_checkbox" class="complexity_checkbox" checked>
+            <i class="material-symbols-rounded complexity_icon">lowercase</i>
+            <p class="complexity_desc">Lowercase</p>
+        </span>
+        <span class="complexity_container">
+            <input type="checkbox" name="" id="numbers_checkbox" class="complexity_checkbox" checked>
+            <i class="material-symbols-rounded complexity_icon">pin</i>
+            <p class="complexity_desc">Numbers</p>
+        </span>
+        <span class="complexity_container">
+            <input type="checkbox" name="" id="symbols_checkbox" class="complexity_checkbox" checked>
+            <i class="material-symbols-rounded complexity_icon">data_object</i>
+            <p class="complexity_desc">Symbols</p>
+        </span>
     </div>
-    <input type="range" id="length_range" min="15" max="100" value="100">
   </div>
-  <div id="main_complexity_container">
-    <span class="complexity_container">
-        <input type="checkbox" name="" id="uppercase_checkbox" class="complexity_checkbox" checked>
-        <i class="material-symbols-rounded complexity_icon">uppercase</i>
-        <p class="complexity_desc">Uppercase</p>
-    </span>
-    <span class="complexity_container">
-        <input type="checkbox" name="" id="lowercase_checkbox" class="complexity_checkbox" checked>
-        <i class="material-symbols-rounded complexity_icon">lowercase</i>
-        <p class="complexity_desc">Lowercase</p>
-    </span>
-    <span class="complexity_container">
-        <input type="checkbox" name="" id="numbers_checkbox" class="complexity_checkbox" checked>
-        <i class="material-symbols-rounded complexity_icon">pin</i>
-        <p class="complexity_desc">Numbers</p>
-    </span>
-    <span class="complexity_container">
-        <input type="checkbox" name="" id="symbols_checkbox" class="complexity_checkbox" checked>
-        <i class="material-symbols-rounded complexity_icon">data_object</i>
-        <p class="complexity_desc">Symbols</p>
-    </span>
-  </div>
+  <hr>
   <div id="save_container">
-    <i class="material-symbols-rounded complexity_icon">folder</i>
-    <select name="" id="auth_portal_select">
-        <option value="" disabled selected>Choose portal</option>
-        <% for (let i = 0; i < data.length; i++) { %>
-            <option id="<%= data[i] %>_option" value="<%= data[i] %>"><%= data[i] %></option>
-        <% } %>
-    </select>
+    <div id="portal_dropdown" class="dropdown">
+        <i class="material-symbols-rounded dropdown_icon">folder_copy</i>
+        <p id="portal_dropdown_disp_text" class="dropdown_disp_text">Choose a portal</p>
+        <i class="material-symbols-rounded dropdown_arrow">keyboard_arrow_down</i>
+        <div id="portal_dropdown_menu" class="dropdown_menu">
+            <% for (let i = 0; i < data.length; i++) { %>
+                <div id="<%= data[i] %>_option" class="dropdown_option">
+                    <i class="material-symbols-rounded dropdown_icon">folder</i>
+                    <p class="dropdown_option_value"><%= data[i] %></p>
+                </div>
+            <% } %>
+        </div>
+    </div>
     <button type="button" id="save_btn" class="advanced_btn"><i class="material-symbols-rounded btn_icon">cloud_upload</i> Save</button>
   </div>
 </div>

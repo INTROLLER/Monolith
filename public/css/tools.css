@@ -1,5 +1,14 @@
 #main_title {
   color: white;
+  margin: 0;
+  margin-top: 25px;
+}
+
+hr {
+  width: 95%;
+  border: none;
+  height: 1px;
+  background-color: #121b29;
 }
 
 #tools_container {
@@ -10,7 +19,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  gap: 15px;
+  gap: 23px;
 }
 
 #data_input_section {
@@ -23,6 +32,16 @@
   gap: 5px;
 }
 
+#generator_settings_container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  gap: 15px;
+}
+
 #length_container {
   position: relative;
   width: 100%;
@@ -30,7 +49,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  gap: 5px;
+  gap: 12px;
 }
 
 #length_disp_container {
@@ -69,6 +88,7 @@
   justify-content: center;
   box-sizing: border-box;
   color: white;
+  margin: 0;
 }
 
 #length_range {
@@ -170,6 +190,7 @@
   transition: transform 0.1s;
   justify-content: start;
   align-items: center;
+  background-image: linear-gradient(45deg, #0d131d, #141e2c);
 }
 
 .inactive_complexity {
@@ -224,19 +245,4 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-}
-
-#auth_portal_select {
-  width: 100%;
-  padding: 10px 13px;
-  box-sizing: border-box;
-  cursor: pointer;
-  background-color: #121b29;
-  border-radius: 10px;
-  height: 40px;
-  position: relative;
-  z-index: 1;
-  color: white;
-  border: none;
-  border-right: 10px solid transparent
 }

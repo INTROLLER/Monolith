@@ -28,7 +28,6 @@
 .auth_portal_card {
   width: 100%;
   padding: 20px 20px;
-  /* background: #121b29; */
   background-image: linear-gradient(45deg, #0d131d, #141e2c);
   border-radius: 8px;
   cursor: pointer;
@@ -38,6 +37,10 @@
   justify-content: space-between;
   position: relative;
   box-sizing: border-box;
+}
+
+.auth_portal_card:hover {
+  background-image: linear-gradient(45deg, #121b29, #121b29);
 }
 
 .portal_card_icon {

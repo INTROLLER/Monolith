@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #090c13;
+  background-color: #05070a;
   /* background-color: rgb(15, 15, 15); */
   display: flex;
   flex-direction: column;
@@ -103,7 +103,7 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: #121b29;
+  background-image: linear-gradient(45deg, #0d131d, #141e2c);
   border-radius: 50px;
   padding: 0 10px;
   box-sizing: border-box;
@@ -159,6 +159,114 @@ input[readonly] {
   justify-content: center;
   gap: 10px;
   color: rgb(119, 119, 119);
+}
+
+.dropdown {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(45deg, #0d131d, #141e2c);
+  padding: 0 10px 0 15px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  gap: 10px;
+}
+
+.dropdown_icon {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  color: white;
+  font-size: 22px;
+}
+
+.dropdown_disp_text {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  padding: 10px 0;
+  transition: all 0.1s;
+  color: white;
+  user-select: none;
+  font-weight: 400;
+  margin: 0;
+}
+
+.dropdown_arrow {
+  position: relative;
+  color: white;
+  font-size: 23px;
+  transition: all 0.1s;
+}
+
+.dropdown.open .dropdown_arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown_menu {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  background-image: linear-gradient(45deg, #0d131d, #141e2c);
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 1;
+  box-sizing: border-box;
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+  display: none;
+}
+
+.dropdown.open .dropdown_menu {
+  display: flex;
+}
+
+.dropdown_option {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  padding: 10px 13px;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: transparent;
+  transition: all 0.1s;
+  gap: 10px;
+}
+
+.dropdown_option:hover {
+  background-color: #121b29;
+}
+
+.dropdown_option_value {
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: transparent;
+  transition: all 0.1s;
+  color: white;
+  user-select: none;
+  font-weight: 400;
+  font-size: 15px;
+  margin: 0;
 }
 
 @media screen and (max-width: 1620px) {

@@ -72,8 +72,8 @@ function animateFadeEffect(btn, color, isTransparent = false) {
       btn.style.color = 'white';
     } else {
       btn.style.transition = `all 0.1s, box-shadow 0.${ANIMDURATION}s linear, background-color 0.${ANIMDURATION}s linear`;
-      btn.style.boxShadow = 'none';
-      btn.style.backgroundColor = '#121b29';
+      btn.style.boxShadow = `none`;
+      btn.style.backgroundColor = `#121b29`;
     }
 
     clearAnimTimeout = setTimeout(() => {

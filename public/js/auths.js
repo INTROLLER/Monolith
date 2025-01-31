@@ -12,7 +12,8 @@ const portalCards = document.querySelectorAll('.auth_portal_card');
 const portalTitles = document.querySelectorAll('.portal_title');
 const noPortalsHldr = document.querySelector('#no_portals_hldr');
 
-const authPortalSelect = document.querySelector('#auth_portal_select');
+const portalDropdown = document.querySelector('#portal_dropdown');
+const portalDropdownText = document.querySelector('#portal_dropdown_disp_text');
 
 const passDisp = document.querySelector('#pass_disp_container');
 const passListHldr = document.querySelector('#pass_list_hldr');
@@ -58,7 +59,7 @@ function handleSumbitPortalEditBtn(btn) {
     const acceptBtn = card.querySelector('.portal_submit_edit_btn');
     const cancelBtn = card.querySelector('.portal_cancel_edit_btn');
     const portalName = card.id;
-    const option = authPortalSelect.querySelector(`#${portalName}_option`);
+    const option = portalDropdown.querySelector(`#${portalName}_option`);
     const newPortalName = input.value;
 
     if (!newPortalName || newPortalName === "") return;
@@ -138,7 +139,7 @@ function handleDeletePortalBtn(btn) {
     card.remove();
     const option = document.querySelector(`#auth_portal_select #${portalName}_option`);
     if (option) option.remove();
-    authPortalSelect.selectedIndex = 0;
+    portalDropdownText.textContent = 'Choose a portal';
     if (authListHldr.children.length <= 1) noPortalsHldr.style.display = 'flex';
   });
 }
@@ -152,7 +153,7 @@ function handlePortalInputSubmit(input) {
       const acceptBtn = card.querySelector('.portal_submit_edit_btn');
       const cancelBtn = card.querySelector('.portal_cancel_edit_btn');
       const portalName = card.id;
-      const option = authPortalSelect.querySelector(`#${portalName}_option`);
+      const option = portalDropdown.querySelector(`#${portalName}_option`);
       const newPortalName = input.value;
 
       if (!newPortalName || newPortalName === "") return;
@@ -178,9 +179,9 @@ function handlePortalInputSubmit(input) {
       acceptBtn.removeAttribute('style');
       cancelBtn.removeAttribute('style');
 
+      if (portalDropdownText.textContent === portalName) portalDropdownText.textContent = newPortalName;
       card.id = newPortalName;
-      option.value = newPortalName;
-      option.innerHTML = newPortalName;
+      option.querySelector('.dropdown_option_value').textContent = newPortalName;
       option.id = `${newPortalName}_option`;
     }
   })
@@ -378,8 +379,8 @@ authPortalInput.addEventListener('keydown', (e) => {
       const deleteBtn = newCard.querySelector('.portal_delete_btn');
       const portalTitle = newCard.querySelector('.portal_title');
 
-      authPortalSelect.innerHTML += `
-        <option id="${authPortal}_option" value="${authPortal}">${authPortal}</option>
+      portalDropdownText.innerHTML += `
+        <div id="${authPortal}_option" class="dropdown_option">${authPortal}</div>
       `
 
       adjustInputWidth(portalTitle);
@@ -440,8 +441,8 @@ createPortalBtn.addEventListener('click', function () {
     const deleteBtn = newCard.querySelector('.portal_delete_btn');
     const portalTitle = newCard.querySelector('.portal_title');
 
-    authPortalSelect.innerHTML += `
-      <option id="${authPortal}_option" value="${authPortal}">${authPortal}</option>
+    portalDropdownText.innerHTML += `
+      <div id="${authPortal}_option" class="dropdown_option">${authPortal}</div>
     `
 
     adjustInputWidth(portalTitle);
