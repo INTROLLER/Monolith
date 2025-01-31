@@ -380,7 +380,10 @@ authPortalInput.addEventListener('keydown', (e) => {
       const portalTitle = newCard.querySelector('.portal_title');
 
       portalDropdownText.innerHTML += `
-        <div id="${authPortal}_option" class="dropdown_option">${authPortal}</div>
+        <div id="${authPortal}_option" class="dropdown_option">
+            <i class="material-symbols-rounded dropdown_icon">folder</i>
+            <p class="dropdown_option_value">${authPortal}</p>
+        </div>
       `
 
       adjustInputWidth(portalTitle);
@@ -442,7 +445,10 @@ createPortalBtn.addEventListener('click', function () {
     const portalTitle = newCard.querySelector('.portal_title');
 
     portalDropdownText.innerHTML += `
-      <div id="${authPortal}_option" class="dropdown_option">${authPortal}</div>
+      <div id="${authPortal}_option" class="dropdown_option">
+          <i class="material-symbols-rounded dropdown_icon">folder</i>
+          <p class="dropdown_option_value">${authPortal}</p>
+      </div>
     `
 
     adjustInputWidth(portalTitle);
