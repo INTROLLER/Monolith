@@ -320,9 +320,11 @@ function adjustInputWidth(input) {
     tempSpan.style.position = 'absolute'; // Prevent affecting layout
     tempSpan.style.whiteSpace = 'pre'; // Preserve spaces exactly as input
     tempSpan.style.font = getComputedStyle(input).font; // Match font styles
-    tempSpan.textContent = input.value || input.placeholder || ''; // Use value or placeholder
+    tempSpan.textContent = input.value; // Use value
 
+    console.log(input.value);
     document.body.appendChild(tempSpan);
+    console.log(tempSpan.offsetWidth);
     input.style.width = `${tempSpan.offsetWidth + 2}px`; // Add slight buffer
     document.body.removeChild(tempSpan);
   };
@@ -379,7 +381,7 @@ authPortalInput.addEventListener('keydown', (e) => {
       const deleteBtn = newCard.querySelector('.portal_delete_btn');
       const portalTitle = newCard.querySelector('.portal_title');
 
-      portalDropdownText.innerHTML += `
+      portalDropdown.querySelector('.dropdown_menu').innerHTML += `
         <div id="${authPortal}_option" class="dropdown_option">
             <i class="material-symbols-rounded dropdown_icon">folder</i>
             <p class="dropdown_option_value">${authPortal}</p>
@@ -444,7 +446,7 @@ createPortalBtn.addEventListener('click', function () {
     const deleteBtn = newCard.querySelector('.portal_delete_btn');
     const portalTitle = newCard.querySelector('.portal_title');
 
-    portalDropdownText.innerHTML += `
+    portalDropdown.querySelector('.dropdown_menu').innerHTML += `
       <div id="${authPortal}_option" class="dropdown_option">
           <i class="material-symbols-rounded dropdown_icon">folder</i>
           <p class="dropdown_option_value">${authPortal}</p>
@@ -473,14 +475,14 @@ authSearch.addEventListener('input', () => {
   });
 });
 
-window.onload = () => {
+document.addEventListener('DOMContentLoaded', () => {
   portalTitles.forEach((input) => {
     adjustInputWidth(input);
     handlePortalInputSubmit(input);
   
     input.addEventListener('click', (e) => e.stopPropagation());
   });
-};
+})
 
 if (authListHldr.children.length <= 1) noPortalsHldr.style.display = 'flex';
 

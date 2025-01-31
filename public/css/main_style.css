@@ -230,11 +230,14 @@ input[readonly] {
   top: 100%;
   left: 0;
   margin-top: 5px;
-  display: none;
+  visibility: hidden;
+  transition: all 0.1s;
+  opacity: 0;
 }
 
 .dropdown.open .dropdown_menu {
-  display: flex;
+  visibility: visible;
+  opacity: 1;
 }
 
 .dropdown_option {
