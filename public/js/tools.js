@@ -116,7 +116,56 @@ window.onload = () => {
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     ))
   })
+
+  document.querySelectorAll('.dropdown_menu').forEach((menu) => {
+    if (menu.children.length >= 4) {
+      let height = 0;
+      const children = menu.children;
+
+      for (let i = 0; i < 4; i++) {
+        height += parseInt(children[i].offsetHeight);
+      }
+
+      menu.style.maxHeight = `${height}px`;
+    }
+  })
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const dropdown = document.getElementById("portal_dropdown_menu");
+
+  function adjustDropdownPosition() {
+      if (!dropdown) return;
+
+      const rect = dropdown.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+
+      // Prevent overflow on the right
+      if (rect.right > viewportWidth) {
+          dropdown.style.left = `${viewportWidth - rect.width - 10}px`;
+      }
+
+      // Prevent overflow on the left
+      if (rect.left < 0) {
+          dropdown.style.left = `10px`;
+      }
+
+      // Prevent overflow at the bottom
+      if (rect.bottom > viewportHeight) {
+          dropdown.style.top = `${window.scrollY + viewportHeight - rect.height - 10}px`;
+      }
+
+      // Prevent overflow at the top
+      if (rect.top < 0) {
+          dropdown.style.top = `${window.scrollY + 10}px`;
+      }
+  }
+
+  // Adjust position when showing the dropdown
+  dropdown.addEventListener("click", adjustDropdownPosition);
+  window.addEventListener("resize", adjustDropdownPosition);
+});
 
 updateBarDisplay(lengthSlider);
 handleCopyBtn(copyLoginBtn);

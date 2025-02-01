@@ -118,32 +118,6 @@ function handleCancelPortalEditBtn(btn) {
   });
 }
 
-function handleDeletePortalBtn(btn) {
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-
-    const confirm = window.confirm('Are you sure you want to delete this portal?');
-    if (!confirm) return;
-
-    const card = btn.closest('.auth_portal_card');
-    const portalName = card.id;
-
-    fetch('/api/delete_portal', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        portal: portalName
-      }),
-    });
-
-    card.remove();
-    const option = document.querySelector(`#auth_portal_select #${portalName}_option`);
-    if (option) option.remove();
-    portalDropdownText.textContent = 'Choose a portal';
-    if (authListHldr.children.length <= 1) noPortalsHldr.style.display = 'flex';
-  });
-}
-
 function handlePortalInputSubmit(input) {
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
@@ -186,6 +160,33 @@ function handlePortalInputSubmit(input) {
     }
   })
 }
+
+function handleDeletePortalBtn(btn) {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    const confirm = window.confirm('Are you sure you want to delete this portal?');
+    if (!confirm) return;
+
+    const card = btn.closest('.auth_portal_card');
+    const portalName = card.id;
+
+    fetch('/api/delete_portal', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        portal: portalName
+      }),
+    });
+
+    card.remove();
+    const option = document.querySelector(`#${portalName}_option`);
+    if (option) option.remove();
+    if (portalDropdownText.textContent === portalName) portalDropdownText.textContent = 'Choose a portal';
+    if (authListHldr.children.length <= 1) noPortalsHldr.style.display = 'flex';
+  });
+}
+
 
 function handlePortalCard(card) {
   card.addEventListener('click', () => {
@@ -380,12 +381,23 @@ authPortalInput.addEventListener('keydown', (e) => {
       const deleteBtn = newCard.querySelector('.portal_delete_btn');
       const portalTitle = newCard.querySelector('.portal_title');
 
-      portalDropdown.querySelector('.dropdown_menu').innerHTML += `
+      portalDropdown.querySelector('#portal_dropdown_menu').innerHTML += `
         <div id="${authPortal}_option" class="dropdown_option">
             <i class="material-symbols-rounded dropdown_icon">folder</i>
             <p class="dropdown_option_value">${authPortal}</p>
         </div>
       `
+
+      if (document.querySelector('#portal_dropdown_menu').children.length >= 4) {
+        let height = 0;
+        const children = document.querySelector('#portal_dropdown_menu').children;
+  
+        for (let i = 0; i < 4; i++) {
+          height += parseInt(children[i].offsetHeight);
+        }
+  
+        document.querySelector('#portal_dropdown_menu').style.maxHeight = `${height}px`;
+      }
 
       adjustInputWidth(portalTitle);
       handlePortalInputSubmit(portalTitle);
@@ -445,12 +457,23 @@ createPortalBtn.addEventListener('click', function () {
     const deleteBtn = newCard.querySelector('.portal_delete_btn');
     const portalTitle = newCard.querySelector('.portal_title');
 
-    portalDropdown.querySelector('.dropdown_menu').innerHTML += `
+    portalDropdown.querySelector('#portal_dropdown_menu').innerHTML += `
       <div id="${authPortal}_option" class="dropdown_option">
           <i class="material-symbols-rounded dropdown_icon">folder</i>
           <p class="dropdown_option_value">${authPortal}</p>
       </div>
     `
+
+    if (document.querySelector('#portal_dropdown_menu').children.length >= 4) {
+      let height = 0;
+      const children = document.querySelector('#portal_dropdown_menu').children;
+
+      for (let i = 0; i < 4; i++) {
+        height += parseInt(children[i].offsetHeight);
+      }
+
+      document.querySelector('#portal_dropdown_menu').style.maxHeight = `${height}px`;
+    }
 
     adjustInputWidth(portalTitle);
     handlePortalInputSubmit(portalTitle);
