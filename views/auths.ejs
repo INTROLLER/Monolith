@@ -11,13 +11,14 @@
         <p class="no_portals_text">No auth portals found</p>
     </div>
     <% for (let i = 0; i < data.length; i++) { %>
-        <div id="<%= data[i]%>" class="auth_portal_card">
+        <div id="<%= data[i]['title']%>" class="auth_portal_card <%= data[i]['starred'] ? 'starred' : '' %>">
             <div class="portal_name_hldr">
             <i class="material-symbols-rounded portal_card_icon">folder</i>
-            <input type="text" class="portal_title" readonly value="<%= data[i] %>">
+            <input type="text" class="portal_title" readonly value="<%= data[i]['title']%>">
             <div class="portal_btns_hldr">
                 <button type="button" class="portal_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
                 <button type="button" class="portal_delete_btn transparent_btn"><i class="material-symbols-rounded btn_icon">delete_forever</i></button>
+                <button type="button" class="portal_star_btn transparent_btn"><i class="material-symbols-rounded btn_icon">star</i></button>
                 <button type="button" class="portal_submit_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
                 <button type="button" class="portal_cancel_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
             </div>

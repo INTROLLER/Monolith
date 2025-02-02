@@ -166,22 +166,16 @@ function handleCredInputSubmit(input) {
 }
 
 passDispClose.addEventListener('click', () => {
-  const allCards = document.querySelectorAll('.auth_portal_card');
-
   passDisp.removeAttribute('style');
   toolsContainer.removeAttribute('style');
 
-  allCards.forEach((card) => {
-    if (card.dataset.active === 'true') {
-      card.querySelector('.portal_card_icon').innerHTML = 'folder';
-      card.querySelector('.portal_card_icon').style.color = '#fff';
-      card.querySelector('.portal_title').style.color = '#fff';
-      card.querySelector('.portal_card_arrow').innerHTML = 'arrow_forward_ios';
-      card.dataset.active = 'false';
-      card.removeAttribute('style');
-      return;
-    };
-  })
+  const activeCard = document.querySelector('.auth_portal_card.active');
+
+  if (activeCard) {
+    activeCard.classList.remove('active');
+    activeCard.querySelector('.portal_card_arrow').innerHTML = 'arrow_forward_ios';
+    activeCard.querySelector('.portal_card_icon').innerHTML = 'folder';
+  }
 })
 
 passSearch.addEventListener('input', () => {

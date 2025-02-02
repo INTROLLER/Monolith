@@ -4,6 +4,7 @@ const fs = require('fs').promises;
 const { encrypt, decrypt, generateKeys } = require('./utils/security');
 const { generatePass } = require('./utils/generator');
 const { benchmark } = require('./utils/benchmark');
+const { json } = require('body-parser');
 const dataPath = './data/data.json';
 const keysPath = './data/keys.json';
 
@@ -28,8 +29,14 @@ router.get('/', (req, res) => {
     const jsonData = JSON.parse(data);
     let portalList = []
     const dataLength = jsonData.length
+
     for (let i = 0; i < dataLength; i++) {
-      portalList.push(decrypt('auth_portal', Object.keys(jsonData[i])[0]))
+      const portalTitle = decrypt('auth_portal', Object.keys(jsonData[i])[0])
+      if (jsonData[i]['starred']) {
+        portalList.push({ title: portalTitle, starred: true })
+      } else {
+        portalList.push({ title: portalTitle, starred: false })
+      }
     }
 
     res.render('index.ejs', { root: 'views', data: portalList });
@@ -92,7 +99,8 @@ router.post('/api/create', (req, res) => {
     const encryptedAuth = encrypt('auth_portal', auth)
 
     jsonData.push({
-      [encryptedAuth]: []
+      [encryptedAuth]: [],
+      "starred": false
     });
 
     const updatedJson = JSON.stringify(jsonData, null, 3);
@@ -281,6 +289,38 @@ router.delete('/api/delete_credential', (req, res) => {
     for (let i = 0; i < dataLength; i++) {
       if (Object.keys(jsonData[i])[0] === encryptedPortal) {
         jsonData[i][encryptedPortal].splice(index, 1)
+        break
+      }
+    }
+
+    const updatedJson = JSON.stringify(jsonData, null, 3);
+
+    fs.writeFile(dataPath, updatedJson, 'utf8')
+    .then(() => {
+      console.log('File updated successfully!');
+      res.send('File updated successfully!');
+    })
+    .catch((err) => {
+      console.error('Error writing file:', err);
+    });
+  })
+  .catch((err) => {
+    console.error('Error reading file:', err);
+  });
+});
+
+router.put('/api/toggle_star', (req, res) => {
+  const { portalName, isStarred } = req.body;
+
+  fs.readFile(dataPath, 'utf8')
+  .then((data) => {
+    let jsonData = JSON.parse(data);
+    const encryptedPortal = encrypt('auth_portal', portalName)
+    const dataLength = jsonData.length
+
+    for (let i = 0; i < dataLength; i++) {
+      if (Object.keys(jsonData[i])[0] === encryptedPortal) {
+        jsonData[i].starred = isStarred
         break
       }
     }

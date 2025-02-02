@@ -43,10 +43,34 @@
   background-image: linear-gradient(45deg, #121b29, #121b29);
 }
 
+.auth_portal_card:hover .portal_card_arrow {
+  transform: scale(1.2);
+}
+
+.auth_portal_card:active .portal_card_arrow {
+  transform: scale(0.95);
+}
+
 .portal_card_icon {
   color: white;
   font-size: 30px;
   transition: all 0.1s;
+}
+
+.auth_portal_card.active .portal_card_icon {
+  color: #2cd472;
+}
+
+.auth_portal_card.starred .portal_card_icon {
+  color: #ffff5c;
+}
+
+.auth_portal_card.active .portal_title {
+  color: #2cd472;
+}
+
+.auth_portal_card.active {
+  background-image: linear-gradient(45deg, #121b29, #121b29);
 }
 
 .portal_title {
@@ -78,6 +102,7 @@
 .portal_btns_hldr {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 4px;
 }
 
@@ -85,14 +110,14 @@
   display: none;
 }
 
-.portal_edit_btn, .portal_delete_btn {
+.portal_edit_btn, .portal_delete_btn, .portal_star_btn {
   display: none;
   cursor: pointer;
   transition: color 0.1s, transform 0.1s;
   padding: 4px;
 }
 
-.auth_portal_card:hover .portal_edit_btn, .auth_portal_card:hover .portal_delete_btn {
+.auth_portal_card:hover .portal_edit_btn, .auth_portal_card:hover .portal_delete_btn, .auth_portal_card:hover .portal_star_btn {
   display: block;
 }
 
@@ -106,4 +131,21 @@
 
 .portal_delete_btn:hover .btn_icon {
   color: rgb(255, 40, 40);
+}
+
+.portal_star_btn i {
+  color: #ffff5c;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 500,
+  'GRAD' -25,
+  'opsz' 48
+}
+
+.auth_portal_card.starred .portal_star_btn i {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 600,
+  'GRAD' 0,
+  'opsz' 35
 }

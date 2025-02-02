@@ -8,6 +8,7 @@ const portalDeleteBtns = document.querySelectorAll('.portal_delete_btn');
 const portalEditBtns = document.querySelectorAll('.portal_edit_btn');
 const portalAcceptBtns = document.querySelectorAll('.portal_submit_edit_btn');
 const portalCancelBtns = document.querySelectorAll('.portal_cancel_edit_btn');
+const portalStarBtns = document.querySelectorAll('.portal_star_btn');
 const portalCards = document.querySelectorAll('.auth_portal_card');
 const portalTitles = document.querySelectorAll('.portal_title');
 const noPortalsHldr = document.querySelector('#no_portals_hldr');
@@ -191,6 +192,23 @@ function handleDeletePortalBtn(btn) {
 function handlePortalCard(card) {
   card.addEventListener('click', () => {
     const portalName = card.id;
+
+    if (card.classList.contains('active')) {
+      card.classList.remove('active');
+      passDisp.removeAttribute('style');
+      toolsContainer.removeAttribute('style');
+      card.querySelector('.portal_card_arrow').innerHTML = 'arrow_forward_ios';
+      card.querySelector('.portal_card_icon').innerHTML = 'folder';
+      return;
+    };
+
+    const activeCard = document.querySelector('.auth_portal_card.active');
+
+    if (activeCard) {
+      activeCard.classList.remove('active');
+      activeCard.querySelector('.portal_card_arrow').innerHTML = 'arrow_forward_ios';
+      activeCard.querySelector('.portal_card_icon').innerHTML = 'folder';
+    }
     
     fetch(`/api/get_portal?portal=${portalName}`, {
       method: 'GET',
@@ -199,44 +217,12 @@ function handlePortalCard(card) {
 
     .then(response => response.json())
     .then(data => {
-      const cardIcon = card.querySelector('.portal_card_icon')
-      const arrow = card.querySelector('.portal_card_arrow')
-      const cardTitle = card.querySelector('.portal_title')
-      const allCards = document.querySelectorAll('.auth_portal_card');
-
-      if (card.dataset.active === 'true') {
-        card.dataset.active = 'false';
-        passDisp.removeAttribute('style');
-        toolsContainer.removeAttribute('style');
-        cardIcon.innerHTML = 'folder';
-        cardIcon.style.color = '#fff';
-        cardTitle.style.color = '#fff';
-        arrow.innerHTML = 'arrow_forward_ios';
-        card.removeAttribute('style');
-        return;
-      }
-
-      allCards.forEach((card) => {
-        if (card.dataset.active === 'true') {
-          card.querySelector('.portal_card_icon').innerHTML = 'folder';
-          card.querySelector('.portal_card_icon').style.color = '#fff';
-          card.querySelector('.portal_title').style.color = '#fff';
-          card.querySelector('.portal_card_arrow').innerHTML = 'arrow_forward_ios';
-          card.removeAttribute('style');
-          card.dataset.active = 'false';
-          return;
-        };
-      })
-
-      cardIcon.innerHTML = 'folder_open';
-      cardIcon.style.color = '#2cd472';
-      cardTitle.style.color = '#2cd472';
-      arrow.innerHTML = 'close';
-      card.dataset.active = 'true';
-      card.style.backgroundColor = '#182436';
-
       passDisp.style.display = 'flex';
       toolsContainer.style.display = 'none';
+
+      card.classList.toggle('active');
+      card.querySelector('.portal_card_arrow').innerHTML = 'close';
+      card.querySelector('.portal_card_icon').innerHTML = 'folder_open';
 
       document.querySelector('#pass_disp_title').innerHTML = portalName;
       const credsLength = Object.values(data)[0].length;
@@ -368,6 +354,7 @@ authPortalInput.addEventListener('keydown', (e) => {
                           <div class="portal_btns_hldr">
                               <button type="button" class="portal_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
                               <button type="button" class="portal_delete_btn transparent_btn"><i class="material-symbols-rounded btn_icon">delete_forever</i></button>
+                              <button type="button" class="portal_star_btn transparent_btn"><i class="material-symbols-rounded btn_icon">star</i></button>
                               <button type="button" class="portal_submit_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
                               <button type="button" class="portal_cancel_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
                           </div>
@@ -425,10 +412,8 @@ createPortalBtn.addEventListener('click', function () {
         auth: authPortal
       }),
   })
-  .then((response) => {
+  .then(() => {
     if (noPortalsHldr.style.display !== 'none') noPortalsHldr.style.display = 'none';
-
-    response.json()
     animateFadeEffect(createPortalBtn, '#2cd472');
 
     authPortalInput.value = '';
@@ -483,6 +468,27 @@ createPortalBtn.addEventListener('click', function () {
     handleDeletePortalBtn(deleteBtn);
   })
   .catch((error) => console.error('Error:', error));
+});
+
+portalStarBtns.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const card = btn.closest('.auth_portal_card');
+    const authPortal = card.id;
+
+    card.classList.toggle('starred');
+
+    const isStarred = card.classList.contains('starred');
+    fetch('/api/toggle_star', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        portalName: authPortal,
+        isStarred: isStarred
+      }),
+    })
+    .catch((error) => console.error('Error:', error));
+  });
 });
 
 authSearch.addEventListener('input', () => {

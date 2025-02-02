@@ -59,9 +59,9 @@
         <i class="material-symbols-rounded dropdown_arrow">keyboard_arrow_down</i>
         <div id="portal_dropdown_menu" class="dropdown_menu">
             <% for (let i = 0; i < data.length; i++) { %>
-                <div id="<%= data[i] %>_option" class="dropdown_option">
+                <div id="<%= data[i]['title']%>_option" class="dropdown_option">
                     <i class="material-symbols-rounded dropdown_icon">folder</i>
-                    <p class="dropdown_option_value"><%= data[i] %></p>
+                    <p class="dropdown_option_value"><%= data[i]['title']%></p>
                 </div>
             <% } %>
         </div>
