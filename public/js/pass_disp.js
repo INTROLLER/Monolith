@@ -182,6 +182,14 @@ passSearch.addEventListener('input', () => {
   const searchValue = passSearch.value.toLowerCase();
   const allCards = document.querySelectorAll('.cred_card');
 
+  if (!searchValue == '') {
+    const inputCleanser = passSearch.parentElement.querySelector('.input_cleanser');
+    inputCleanser.style.display = 'flex';
+  } else {
+    const inputCleanser = passSearch.parentElement.querySelector('.input_cleanser');
+    inputCleanser.style.display = 'none';
+  }
+
   allCards.forEach((card) => {
     if (card.querySelector('.login_input').value.toLowerCase().includes(searchValue)) {
       card.style.display = 'flex';

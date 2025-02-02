@@ -82,6 +82,17 @@ function animateFadeEffect(btn, color, isTransparent = false) {
   }, 100);
 }
 
+function handleSearchCleanserBtn(btn) {
+  btn.addEventListener('click', (e) => {
+    const input = btn.closest('.input_hldr').querySelector('.data_input');
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
+    input.focus();
+  });
+}
+
+document.querySelectorAll('.input_cleanser').forEach(btn => handleSearchCleanserBtn(btn));
+
 setIcon();
 window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', setIcon);
 export { handleCopyBtn, handleVisToggler, updateBarDisplay, animateFadeEffect };

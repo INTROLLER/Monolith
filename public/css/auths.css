@@ -39,8 +39,12 @@
   box-sizing: border-box;
 }
 
-.auth_portal_card:hover {
-  background-image: linear-gradient(45deg, #121b29, #121b29);
+.auth_portal_card.starred {
+  background-image: linear-gradient(45deg, #16150b, #7e7835);
+}
+
+.auth_portal_card:hover, .auth_portal_card.active {
+  filter:contrast(1.1);
 }
 
 .auth_portal_card:hover .portal_card_arrow {
@@ -61,16 +65,12 @@
   color: #2cd472;
 }
 
-.auth_portal_card.starred .portal_card_icon {
+/* .auth_portal_card.starred .portal_card_icon {
   color: #ffff5c;
-}
+} */
 
 .auth_portal_card.active .portal_title {
   color: #2cd472;
-}
-
-.auth_portal_card.active {
-  background-image: linear-gradient(45deg, #121b29, #121b29);
 }
 
 .portal_title {

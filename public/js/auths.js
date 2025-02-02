@@ -494,6 +494,14 @@ portalStarBtns.forEach((btn) => {
 authSearch.addEventListener('input', () => {
   const searchValue = authSearch.value.toLowerCase();
 
+  if (!searchValue == '') {
+    const inputCleanser = authSearch.parentElement.querySelector('.input_cleanser');
+    inputCleanser.style.display = 'flex';
+  } else {
+    const inputCleanser = authSearch.parentElement.querySelector('.input_cleanser');
+    inputCleanser.style.display = 'none';
+  }
+
   authListHldr.querySelectorAll('.auth_portal_card').forEach((card) => {
     if (card.id.toLowerCase().includes(searchValue)) {
       card.style.display = 'flex';

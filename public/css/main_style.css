@@ -144,6 +144,10 @@ input[readonly] {
   caret-color: transparent;
 }
 
+.input_cleanser {
+  display: none;
+}
+
 #main_container {
   position: relative;
   width: 55dvw;
