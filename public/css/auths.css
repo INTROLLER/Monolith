@@ -40,11 +40,25 @@
 }
 
 .auth_portal_card.starred {
-  background-image: linear-gradient(45deg, #16150b, #7e7835);
+  background-image: linear-gradient(45deg, #2c2a0d, #7e7835);
 }
 
-.auth_portal_card:hover, .auth_portal_card.active {
-  filter:contrast(1.1);
+.auth_portal_card:hover {
+  filter:contrast(0.9);
+}
+
+.auth_portal_card.active {
+  filter:contrast(0.9);
+  box-shadow: inset 0 0 0 2px #7db9e0;
+}
+
+.auth_portal_card.starred:hover {
+  filter:contrast(0.9);
+}
+
+.auth_portal_card.active.starred {
+  filter:contrast(0.9);
+  box-shadow: inset 0 0 0 2px #ffff5c;
 }
 
 .auth_portal_card:hover .portal_card_arrow {
@@ -61,17 +75,17 @@
   transition: all 0.1s;
 }
 
-.auth_portal_card.active .portal_card_icon {
-  color: #2cd472;
+.auth_portal_card.active .portal_card_icon, .auth_portal_card.active .portal_title {
+  color: #7db9e0;
+}
+
+.auth_portal_card.active.starred .portal_card_icon, .auth_portal_card.active.starred .portal_title {
+  color: #ffff5c;
 }
 
 /* .auth_portal_card.starred .portal_card_icon {
   color: #ffff5c;
 } */
-
-.auth_portal_card.active .portal_title {
-  color: #2cd472;
-}
 
 .portal_title {
   color: white;

@@ -188,7 +188,6 @@ function handleDeletePortalBtn(btn) {
   });
 }
 
-
 function handlePortalCard(card) {
   card.addEventListener('click', () => {
     const portalName = card.id;
