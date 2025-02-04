@@ -89,6 +89,19 @@ hr {
   box-sizing: border-box;
   color: white;
   margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  width: min-content;
+  appearance: textfield;
+}
+
+#length_disp::-webkit-outer-spin-button,
+#length_disp::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 #length_range {

@@ -9,8 +9,10 @@ const portalDropdownText = document.querySelector('#portal_dropdown_disp_text');
 const saveBtn = document.querySelector('#save_btn');
 const complexityContainers = document.querySelectorAll('.complexity_container')
 const lengthSlider = document.querySelector('#length_range');
+const lengthDisp = document.querySelector('#length_disp');
 
-import { handleCopyBtn, handleVisToggler, updateBarDisplay, animateFadeEffect } from './main.js';
+import { handleCopyBtn, handleVisToggler, updateBarDisplay, animateFadeEffect,  } from './main.js';
+import { adjustInputWidth } from './auths.js';
 
 saveBtn.addEventListener('click', function () {
   const loginData = loginInput.value;
@@ -100,8 +102,11 @@ document.addEventListener('click', (e) => {
       dropdown.classList.remove('open');
     }
   })
-  if (!document.querySelector('#portal_dropdown').contains(e.target)) {
-    document.querySelector('#portal_dropdown').classList.remove('open');
+
+  if (!lengthDisp.contains(e.target)) {
+    lengthSlider.value = lengthDisp.value;
+    updateBarDisplay(lengthSlider);
+    lengthDisp.blur();
   }
 });
 
@@ -131,41 +136,15 @@ window.onload = () => {
   })
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const dropdown = document.getElementById("portal_dropdown_menu");
-
-  function adjustDropdownPosition() {
-      if (!dropdown) return;
-
-      const rect = dropdown.getBoundingClientRect();
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-
-      // Prevent overflow on the right
-      if (rect.right > viewportWidth) {
-          dropdown.style.left = `${viewportWidth - rect.width - 10}px`;
-      }
-
-      // Prevent overflow on the left
-      if (rect.left < 0) {
-          dropdown.style.left = `10px`;
-      }
-
-      // Prevent overflow at the bottom
-      if (rect.bottom > viewportHeight) {
-          dropdown.style.top = `${window.scrollY + viewportHeight - rect.height - 10}px`;
-      }
-
-      // Prevent overflow at the top
-      if (rect.top < 0) {
-          dropdown.style.top = `${window.scrollY + 10}px`;
-      }
+lengthDisp.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    lengthSlider.value = lengthDisp.value;
+    updateBarDisplay(lengthSlider);
+    lengthDisp.blur();
   }
-
-  // Adjust position when showing the dropdown
-  dropdown.addEventListener("click", adjustDropdownPosition);
-  window.addEventListener("resize", adjustDropdownPosition);
 });
+
+adjustInputWidth(lengthDisp);
 
 updateBarDisplay(lengthSlider);
 handleCopyBtn(copyLoginBtn);

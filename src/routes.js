@@ -31,8 +31,12 @@ router.get('/', (req, res) => {
     const dataLength = jsonData.length
 
     for (let i = 0; i < dataLength; i++) {
-      const portalTitle = decrypt('auth_portal', Object.keys(jsonData[i])[0])
-      if (jsonData[i]['starred']) {
+      const obj = jsonData[i]
+      let objKey = Object.keys(obj)[0]
+      if (objKey === "starred") objKey = Object.keys(obj)[1]
+
+      const portalTitle = decrypt('auth_portal', objKey)
+      if (obj['starred']) {
         portalList.push({ title: portalTitle, starred: true })
       } else {
         portalList.push({ title: portalTitle, starred: false })
@@ -57,7 +61,8 @@ router.post('/api/save', (req, res) => {
 
       for (let i = 0; i < dataLength; i++) {
         const obj = jsonData[i]
-        const objKey = Object.keys(obj)[0]
+        let objKey = Object.keys(obj)[0]
+        if (objKey === "starred") objKey = Object.keys(obj)[1]
 
         if (encryptedAuth === objKey) {
           const encryptedlogin = encrypt('login', login)
@@ -133,7 +138,8 @@ router.put('/api/edit_portal_name', (req, res) => {
 
     for (let i = 0; i < dataLength; i++) {
       const obj = jsonData[i]
-      const objKey = Object.keys(obj)[0]
+      let objKey = Object.keys(obj)[0]
+      if (objKey === "starred") objKey = Object.keys(obj)[1]
 
       if (encryptedOldName === objKey) {
         obj[encryptedNewName] = obj[objKey]
@@ -200,7 +206,9 @@ router.get('/api/get_portal', (req, res) => {
     const dataLength = jsonData.length
 
     for (let i = 0; i < dataLength; i++) {
-      const objKey = Object.keys(jsonData[i])[0]
+      const obj = jsonData[i]
+      let objKey = Object.keys(obj)[0]
+      if (objKey === "starred") objKey = Object.keys(obj)[1]
 
       if (encryptedPortal === objKey) {
         const portalObject = jsonData[i][objKey]
@@ -247,7 +255,8 @@ router.put('/api/edit_credentials', (req, res) => {
 
     for (let i = 0; i < dataLength; i++) {
       const obj = jsonData[i]
-      const objKey = Object.keys(obj)[0]
+      let objKey = Object.keys(obj)[0]
+      if (objKey === "starred") objKey = Object.keys(obj)[1]
 
       if (objKey === encryptedPortal) {
         if (type === 'login') {

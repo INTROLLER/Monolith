@@ -35,9 +35,11 @@ function handleEditPortalBtn(btn) {
     const deleteBtn = card.querySelector('.portal_delete_btn');
     const acceptBtn = card.querySelector('.portal_submit_edit_btn');
     const cancelBtn = card.querySelector('.portal_cancel_edit_btn');
+    const starBtn = card.querySelector('.portal_star_btn');
 
     editBtn.style.display = 'none';
     deleteBtn.style.display = 'none';
+    starBtn.style.display = 'none';
     acceptBtn.style.display = 'flex';
     cancelBtn.style.display = 'flex';
     input.removeAttribute('readonly');
@@ -57,6 +59,7 @@ function handleSumbitPortalEditBtn(btn) {
     const input = card.querySelector('.portal_title');
     const editBtn = card.querySelector('.portal_edit_btn');
     const deleteBtn = card.querySelector('.portal_delete_btn');
+    const starBtn = card.querySelector('.portal_star_btn');
     const acceptBtn = card.querySelector('.portal_submit_edit_btn');
     const cancelBtn = card.querySelector('.portal_cancel_edit_btn');
     const portalName = card.id;
@@ -83,6 +86,7 @@ function handleSumbitPortalEditBtn(btn) {
 
     editBtn.removeAttribute('style');
     deleteBtn.removeAttribute('style');
+    starBtn.removeAttribute('style');
     acceptBtn.removeAttribute('style');
     cancelBtn.removeAttribute('style');
 
@@ -101,6 +105,7 @@ function handleCancelPortalEditBtn(btn) {
     const input = card.querySelector('.portal_title');
     const editBtn = card.querySelector('.portal_edit_btn');
     const deleteBtn = card.querySelector('.portal_delete_btn');
+    const starBtn = card.querySelector('.portal_star_btn');
     const acceptBtn = card.querySelector('.portal_submit_edit_btn');
     const cancelBtn = card.querySelector('.portal_cancel_edit_btn');
     const portalName = card.id;
@@ -111,9 +116,9 @@ function handleCancelPortalEditBtn(btn) {
 
     editBtn.removeAttribute('style');
     deleteBtn.removeAttribute('style');
+    starBtn.removeAttribute('style');
     acceptBtn.removeAttribute('style');
     cancelBtn.removeAttribute('style'); 
-
     input.value = portalName;
     adjustInputWidth(input);
   });
@@ -125,6 +130,7 @@ function handlePortalInputSubmit(input) {
       const card = input.closest('.auth_portal_card');
       const editBtn = card.querySelector('.portal_edit_btn');
       const deleteBtn = card.querySelector('.portal_delete_btn');
+      const starBtn = card.querySelector('.portal_star_btn');
       const acceptBtn = card.querySelector('.portal_submit_edit_btn');
       const cancelBtn = card.querySelector('.portal_cancel_edit_btn');
       const portalName = card.id;
@@ -151,6 +157,7 @@ function handlePortalInputSubmit(input) {
 
       editBtn.removeAttribute('style');
       deleteBtn.removeAttribute('style');
+      starBtn.removeAttribute('style');
       acceptBtn.removeAttribute('style');
       cancelBtn.removeAttribute('style');
 
@@ -300,14 +307,24 @@ function handlePortalCard(card) {
 }
 
 function adjustInputWidth(input) {
-  const setWidth = () => {
+  function setWidth(e = null) {
     const tempSpan = document.createElement('span');
     tempSpan.style.visibility = 'hidden'; // Make it invisible
     tempSpan.style.position = 'absolute'; // Prevent affecting layout
     tempSpan.style.whiteSpace = 'pre'; // Preserve spaces exactly as input
     tempSpan.style.font = getComputedStyle(input).font; // Match font styles
-    tempSpan.innerText = input.getAttribute('value'); // Use value
-    input.value = input.getAttribute('value');
+
+    if (input.classList.contains('portal_title')) {
+      const value = input.getAttribute('value');
+      if (e) {
+        tempSpan.innerText = input.value;
+      } else {
+        tempSpan.innerText = value;
+        input.value = value;
+      }
+    } else {
+      tempSpan.innerText = input.value;
+    }
     
     document.body.appendChild(tempSpan);
     input.style.width = `${tempSpan.offsetWidth + 2}px`; // Add slight buffer
@@ -315,7 +332,7 @@ function adjustInputWidth(input) {
   };
 
   setWidth(); // Set initial width
-  input.addEventListener('input', setWidth);
+  input.addEventListener('input', (e) => setWidth(e));
 }
 
 authPortalInput.addEventListener('keydown', (e) => {
@@ -526,3 +543,5 @@ portalCancelBtns.forEach(handleCancelPortalEditBtn)
 portalEditBtns.forEach(handleEditPortalBtn);
 portalDeleteBtns.forEach(handleDeletePortalBtn);
 portalCards.forEach(handlePortalCard);
+
+export { adjustInputWidth };

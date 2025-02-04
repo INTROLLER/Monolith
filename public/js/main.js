@@ -40,7 +40,8 @@ function updateBarDisplay(bar) {
 
   bar.style.background = `linear-gradient(to right, ${color} 0%, ${color} ${percentage}%, #121b29 ${percentage}%, #121b29 100%)`;
   lengthDisp.style.color = color;
-  lengthDisp.innerHTML = bar.value;
+  lengthDisp.value = bar.value;
+  lengthDisp.dispatchEvent(new Event('input'));
 }
 
 function setIcon() {

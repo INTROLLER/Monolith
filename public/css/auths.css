@@ -49,7 +49,7 @@
 
 .auth_portal_card.active {
   filter:contrast(0.9);
-  box-shadow: inset 0 0 0 2px #7db9e0;
+  box-shadow: inset 0 0 0 2px #2cd472;
 }
 
 .auth_portal_card.starred:hover {
@@ -76,7 +76,7 @@
 }
 
 .auth_portal_card.active .portal_card_icon, .auth_portal_card.active .portal_title {
-  color: #7db9e0;
+  color: #2cd472;
 }
 
 .auth_portal_card.active.starred .portal_card_icon, .auth_portal_card.active.starred .portal_title {
@@ -95,7 +95,7 @@
   font-size: 25px;
   font-weight: 700;
   width: fit-content;
-  padding: 3px 3px;
+  padding: 3px 0;
   transition: all 0.1s;
   caret-color: transparent;
 }
