@@ -332,7 +332,7 @@ function adjustInputWidth(input) {
   };
 
   setWidth(); // Set initial width
-  input.addEventListener('input', (e) => setWidth(e));
+  input.addEventListener('input', setWidth);
 }
 
 authPortalInput.addEventListener('keydown', (e) => {
