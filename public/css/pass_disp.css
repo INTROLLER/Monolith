@@ -20,10 +20,12 @@
 
 #pass_disp_title {
   position: relative;
-  width: 100%;
+  width: 90%;
   text-align: start;
   color: white;
   transition: all 0.1s;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #pass_disp_close .btn_icon {
