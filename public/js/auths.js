@@ -66,8 +66,21 @@ function handleSumbitPortalEditBtn(btn) {
     const option = portalDropdown.querySelector(`#${portalName}_option`);
     const newPortalName = input.value;
 
-    if (!newPortalName || newPortalName === "") return;
-    else if (newPortalName !== portalName) {
+    if (!newPortalName || newPortalName === "") {
+      input.setAttribute('readonly', true);
+      input.style.borderBottom = 'none';
+      input.style.removeProperty('caret-color');
+
+      editBtn.removeAttribute('style');
+      deleteBtn.removeAttribute('style');
+      starBtn.removeAttribute('style');
+      acceptBtn.removeAttribute('style');
+      cancelBtn.removeAttribute('style'); 
+      input.setAttribute('value', portalName);
+      adjustInputWidth(input);
+      input.setSelectionRange(0, 0);
+      return;
+    } else if (newPortalName !== portalName) {
       if (newPortalName !== null) {
         fetch('/api/edit_portal_name', {
           method: 'PUT',
@@ -83,6 +96,7 @@ function handleSumbitPortalEditBtn(btn) {
     input.setAttribute('readonly', true);
     input.style.borderBottom = 'none';
     input.style.removeProperty('caret-color');
+    input.setSelectionRange(0, 0);
 
     editBtn.removeAttribute('style');
     deleteBtn.removeAttribute('style');
@@ -113,14 +127,15 @@ function handleCancelPortalEditBtn(btn) {
     input.setAttribute('readonly', true);
     input.style.borderBottom = 'none';
     input.style.removeProperty('caret-color');
-
+    
     editBtn.removeAttribute('style');
     deleteBtn.removeAttribute('style');
     starBtn.removeAttribute('style');
     acceptBtn.removeAttribute('style');
     cancelBtn.removeAttribute('style'); 
-    input.value = portalName;
+    input.setAttribute('value', portalName);
     adjustInputWidth(input);
+    input.setSelectionRange(0, 0);
   });
 }
 
@@ -137,8 +152,21 @@ function handlePortalInputSubmit(input) {
       const option = portalDropdown.querySelector(`#${portalName}_option`);
       const newPortalName = input.value;
 
-      if (!newPortalName || newPortalName === "") return;
-      else if (newPortalName !== portalName) {
+      if (!newPortalName || newPortalName === "") {
+        input.setAttribute('readonly', true);
+        input.style.borderBottom = 'none';
+        input.style.removeProperty('caret-color');
+
+        editBtn.removeAttribute('style');
+        deleteBtn.removeAttribute('style');
+        starBtn.removeAttribute('style');
+        acceptBtn.removeAttribute('style');
+        cancelBtn.removeAttribute('style'); 
+        input.setAttribute('value', portalName);
+        adjustInputWidth(input);
+        input.setSelectionRange(0, 0);
+        return;
+      } else if (newPortalName !== portalName) {
         if (newPortalName !== null) {
           fetch('/api/edit_portal_name', {
             method: 'PUT',
@@ -154,6 +182,7 @@ function handlePortalInputSubmit(input) {
       input.setAttribute('readonly', true);
       input.style.borderBottom = 'none';
       input.style.removeProperty('caret-color');
+      input.setSelectionRange(0, 0);
 
       editBtn.removeAttribute('style');
       deleteBtn.removeAttribute('style');
@@ -327,7 +356,8 @@ function adjustInputWidth(input) {
     }
     
     document.body.appendChild(tempSpan);
-    input.style.width = `${tempSpan.offsetWidth + 2}px`; // Add slight buffer
+    const width = tempSpan.offsetWidth + 2;
+    input.style.width = `${width}px`;
     document.body.removeChild(tempSpan);
   };
 

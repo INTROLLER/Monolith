@@ -19,7 +19,7 @@ saveBtn.addEventListener('click', function () {
   const passwordData = passwordInput.value;
   const authPortal = portalDropdownText.textContent;
 
-  if (!passwordData || !authPortal) {
+  if (!passwordData || authPortal === 'Choose a portal') {
     animateFadeEffect(saveBtn, 'rgb(255, 40, 40)');
     return;
   }
@@ -138,7 +138,8 @@ window.onload = () => {
 
 lengthDisp.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-    lengthSlider.value = lengthDisp.value;
+    if (lengthDisp.value == '') lengthDisp.value = lengthSlider.value;
+    else lengthSlider.value = lengthDisp.value;
     updateBarDisplay(lengthSlider);
     lengthDisp.blur();
   }

@@ -61,7 +61,6 @@ hr {
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
-  font-weight: 600;
 }
 
 #length_label {
@@ -76,6 +75,19 @@ hr {
   padding: 0;
   margin: 0;
   color: white;
+}
+
+#length_disp_hldr {
+  position: relative;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 7px;
+  background-color: #121b29;
+  border-radius: 10px;
+  box-sizing: border-box;
 }
 
 #length_disp {
@@ -96,6 +108,7 @@ hr {
   font-size: 18px;
   width: min-content;
   appearance: textfield;
+  font-weight: 400;
 }
 
 #length_disp::-webkit-outer-spin-button,
@@ -109,8 +122,6 @@ hr {
   padding: 0;
   box-sizing: border-box;
   cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   margin: 0;
   background-color: #121b29;
@@ -154,6 +165,7 @@ hr {
   border-radius: 50%;
   border: none;
   transition: all 0.1s;
+  background-color: white;
 }
 
 #length_range::-moz-range-thumb {
@@ -166,6 +178,7 @@ hr {
   border-radius: 50%;
   border: none;
   transition: all 0.1s;
+  background-color: white;
 }
 
 #length_range::-ms-thumb {
@@ -178,6 +191,7 @@ hr {
   border-radius: 50%;
   border: none;
   transition: all 0.1s;
+  background-color: white;
 }
 
 #main_complexity_container {

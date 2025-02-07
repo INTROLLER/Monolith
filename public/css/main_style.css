@@ -150,7 +150,7 @@ input[readonly] {
 
 #main_container {
   position: relative;
-  width: 55dvw;
+  width: 60dvw;
   height: 100dvh;
   margin: auto;
   padding: 20px;
@@ -245,6 +245,18 @@ input[readonly] {
   visibility: hidden;
   transition: all 0.1s;
   opacity: 0;
+  scroll-snap-type: y mandatory;
+}
+
+.dropdown_menu::-webkit-scrollbar {
+  width: 4px;
+  background: none;
+  border-radius: 5px;
+}
+
+.dropdown_menu::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 5px;
 }
 
 .dropdown.open .dropdown_menu {
@@ -265,6 +277,7 @@ input[readonly] {
   background-color: transparent;
   transition: all 0.1s;
   gap: 10px;
+  scroll-snap-align: start;
 }
 
 .dropdown_option:hover {

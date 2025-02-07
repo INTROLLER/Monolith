@@ -23,6 +23,18 @@
   padding-right: 20px;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  overflow-y: auto;
+}
+
+#auth_list_holder::-webkit-scrollbar {
+  width: 4px;
+  background: none;
+  border-radius: 5px;
+}
+
+#auth_list_holder::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 5px;
 }
 
 .auth_portal_card {
@@ -98,6 +110,8 @@
   padding: 3px 0;
   transition: all 0.1s;
   caret-color: transparent;
+  overflow: hidden;
+  max-width: 230px;
 }
 
 .portal_card_arrow {
