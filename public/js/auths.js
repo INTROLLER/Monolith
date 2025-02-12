@@ -260,7 +260,7 @@ function handlePortalCard(card) {
       card.querySelector('.portal_card_icon').innerHTML = 'folder_open';
 
       document.querySelector('#pass_disp_title').innerHTML = portalName;
-      const credsLength = Object.values(data)[0].length;
+      const credsLength = data.length;
 
       const renderedCreds = passListHldr.querySelectorAll('.cred_card');
       const renderedCredsLength = renderedCreds.length
@@ -306,8 +306,8 @@ function handlePortalCard(card) {
           const logInput = passListHldr.querySelector(`#login_input_${i}`);
           const passInput = passListHldr.querySelector(`#password_input_${i}`);
 
-          logInput.value = Object.values(data)[0][i].login;
-          passInput.value = Object.values(data)[0][i].password;
+          logInput.value = data[i].login;
+          passInput.value = data[i].password;
 
           handleCredInputSubmit(logInput);
           handleCredInputSubmit(passInput);

@@ -32,10 +32,7 @@ router.get('/', (req, res) => {
 
     for (let i = 0; i < dataLength; i++) {
       const obj = jsonData[i]
-      let objKey = Object.keys(obj)[0]
-      if (objKey === "starred") objKey = Object.keys(obj)[1]
-
-      const portalTitle = decrypt('auth_portal', objKey)
+      const portalTitle = decrypt('auth_portal', obj.title)
 
       portalList.push({ title: portalTitle, starred: obj.starred })
     }
@@ -58,11 +55,12 @@ router.post('/api/save', (req, res) => {
 
       for (let i = 0; i < dataLength; i++) {
         const obj = jsonData[i]
-        if (Object.keys(obj).includes(encryptedPortal)) {
+
+        if (obj.title === encryptedPortal) {
           const encryptedlogin = encrypt('login', login)
           const encryptedPassword = encrypt('password', password)
 
-          obj[encryptedPortal].push({
+          obj.credentials.push({
             login: encryptedlogin,
             password: encryptedPassword
           });
@@ -75,7 +73,7 @@ router.post('/api/save', (req, res) => {
 
       fs.writeFile(dataPath, updatedJson, 'utf8')
       .then(() => {
-        /* console.log('File updated successfully!'); */
+        console.log('File updated successfully!');
         res.send('File updated successfully!');
       })
       .catch((err) => {
@@ -98,8 +96,9 @@ router.post('/api/create', (req, res) => {
     const encryptedPortal = encrypt('auth_portal', auth)
 
     jsonData.push({
-      [encryptedPortal]: [],
-      starred: false
+      title: encryptedPortal,
+      starred: false,
+      credentials: []
     });
 
     const updatedJson = JSON.stringify(jsonData, null, 3);
@@ -133,9 +132,8 @@ router.put('/api/edit_portal_name', (req, res) => {
     for (let i = 0; i < dataLength; i++) {
       const obj = jsonData[i]
 
-      if (Object.keys(obj).includes(encryptedOldName)) {
-        obj[encryptedNewName] = obj[encryptedOldName]
-        delete obj[encryptedOldName]
+      if (obj.title === encryptedOldName) {
+        obj.title = encryptedNewName
         break
       }
     }
@@ -167,7 +165,7 @@ router.delete('/api/delete_portal', (req, res) => {
 
     for (let i = 0; i < dataLength; i++) {
       const obj = jsonData[i]
-      if (Object.keys(obj).includes(encryptedPortal)) {
+      if (obj.title === encryptedPortal) {
         jsonData.splice(i, 1)
         break
       }
@@ -201,18 +199,17 @@ router.get('/api/get_portal', (req, res) => {
     for (let i = 0; i < dataLength; i++) {
       const obj = jsonData[i]
 
-      if (Object.keys(obj).includes(encryptedPortal)) {
-        const portalObject = jsonData[i][encryptedPortal]
-        const portalLength = portalObject.length
-        let decryptedObject = {}
-        decryptedObject[portal] = []
+      if (obj.title === encryptedPortal) {
+        const credentialsList = jsonData[i].credentials
+        const portalLength = credentialsList.length
+        let decryptedList = []
 
         for (let i = 0; i < portalLength; i++) {
-          const decryptedLogin = decrypt('login', portalObject[i].login)
-          const decryptedPassword = decrypt('password', portalObject[i].password)
-          decryptedObject[portal].push({ login: decryptedLogin, password: decryptedPassword })
+          const decryptedLogin = decrypt('login', credentialsList[i].login)
+          const decryptedPassword = decrypt('password', credentialsList[i].password)
+          decryptedList.push({ login: decryptedLogin, password: decryptedPassword })
         }
-        res.send(decryptedObject)
+        res.send(decryptedList)
         break
       }
     }
@@ -246,13 +243,14 @@ router.put('/api/edit_credentials', (req, res) => {
 
     for (let i = 0; i < dataLength; i++) {
       const obj = jsonData[i]
-      if (Object.keys(obj).includes(encryptedPortal)) {
+
+      if (obj.title === encryptedPortal) {
         if (type === 'login') {
           const encryptedLogin = encrypt('login', newData)
-          obj[encryptedPortal][index].login = encryptedLogin
+          obj.credentials[index].login = encryptedLogin
         } else if (type === 'password') {
           const encryptedPassword = encrypt('password', newData)
-          obj[encryptedPortal][index].password = encryptedPassword
+          obj.credentials[index].password = encryptedPassword
         }
         break
       }
@@ -285,8 +283,8 @@ router.delete('/api/delete_credential', (req, res) => {
 
     for (let i = 0; i < dataLength; i++) {
       const obj = jsonData[i]
-      if (Object.keys(obj).includes(encryptedPortal)) {
-        obj[encryptedPortal].splice(index, 1)
+      if (obj.title === encryptedPortal) {
+        obj.credentials.splice(index, 1)
         break
       }
     }
@@ -318,7 +316,7 @@ router.put('/api/toggle_star', (req, res) => {
 
     for (let i = 0; i < dataLength; i++) {
       const obj = jsonData[i]
-      if (Object.keys(obj).includes(encryptedPortal)) {
+      if (obj.title === encryptedPortal) {
         obj.starred = isStarred
         break
       }

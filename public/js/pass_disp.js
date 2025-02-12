@@ -101,30 +101,6 @@ function handleCancelCredEditBtn(btn) {
   });
 }
 
-function handleDeleteCredBtn(btn) {
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-
-    const confirm = window.confirm('Are you sure you want to delete this credential?');
-    if (!confirm) return;
-
-    const card = btn.closest('.cred_card');
-    const index = card.id;
-
-    fetch('/api/delete_credential', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        index: index,
-        portalName: card.dataset.portalName
-      }),
-    });
-
-    card.remove();
-    if (passListHldr.children.length <= 1) noCredsHldr.style.display = 'flex';
-  });
-}
-
 function handleCredInputSubmit(input) {
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
@@ -162,6 +138,30 @@ function handleCredInputSubmit(input) {
       cancelBtn.removeAttribute('style');
       copyBtn.removeAttribute('style');
     }
+  });
+}
+
+function handleDeleteCredBtn(btn) {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    const confirm = window.confirm('Are you sure you want to delete this credential?');
+    if (!confirm) return;
+
+    const card = btn.closest('.cred_card');
+    const index = card.id;
+
+    fetch('/api/delete_credential', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        index: index,
+        portalName: card.dataset.portalName
+      }),
+    });
+
+    card.remove();
+    if (passListHldr.children.length <= 1) noCredsHldr.style.display = 'flex';
   });
 }
 
