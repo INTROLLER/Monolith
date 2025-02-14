@@ -111,10 +111,10 @@
   height: 150%;
   object-position: center;
   transform: rotate(15deg) scale(1);
-  filter: opacity(0.2) drop-shadow(0 0 25px white);
+  filter: opacity(0.4) drop-shadow(0 0 35px white);
   transition: all 0.1s;
   object-fit: cover;
-  margin-left: 45%;
+  margin-left: 50%;
 }
 
 .auth_portal_card:hover .portal_card_img {

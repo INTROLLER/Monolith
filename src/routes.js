@@ -12,7 +12,7 @@ const keysPath = './data/keys.json';
 fs.access(keysPath)
 .catch(() => {
   return fs.mkdir('./data', { recursive: true })
-  .then(() => fs.writeFile(keysPath, JSON.stringify(generateKeys), 'utf8'))
+  .then(() => fs.writeFile(keysPath, JSON.stringify(generateKeys()), 'utf8'))
 });
 
 // Set up storage if it doesn't exist
