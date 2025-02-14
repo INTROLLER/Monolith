@@ -11,6 +11,23 @@ const symb = '!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 const AllChars = [...lower, ...upper, ...num, ...symb + ' '];
 const AllCharsNoSpace = [...lower, ...upper, ...num, ...symb];
 
+// Load keys synchronously on startup
+try {
+  if (fs.existsSync(mapsPath)) {
+    const data = fs.readFileSync(mapsPath, 'utf8'); // Blocking call
+    cryptoString = JSON.parse(data);
+    console.log("✅ Keys loaded successfully on startup!");
+  } else {
+    console.log("⚠️ Keys file not found, generating new keys...");
+    cryptoString = generateKeys();
+    fs.writeFileSync(mapsPath, JSON.stringify(cryptoString, null, 2), 'utf8');
+    console.log("✅ New keys generated and saved!");
+  }
+} catch (error) {
+  console.error("❌ Error reading keys.json:", error);
+  process.exit(1); // Exit the app if keys can't be loaded
+}
+
 function encrypt(data_type, data) {
   let key
 
@@ -60,23 +77,12 @@ function generateKeys() {
       result.push(AllCharsNoSpace[index])
     }
 
+    result.push(' ')
+
     resultList.push(result)
   }
 
   return resultList
-}
-
-try {
-  fs.readFile(mapsPath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading file:', err);
-      return;
-    }
-
-    cryptoString = JSON.parse(data);
-  });
-} catch (error) {
-  console.error('Error reading file:', error);
 }
 
 module.exports = {
