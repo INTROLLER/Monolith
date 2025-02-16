@@ -55,7 +55,7 @@
 }
 
 .auth_portal_card.starred {
-  background-image: linear-gradient(45deg, #2c2a0d, #7e7835);
+  background-image: linear-gradient(45deg, #2c2a0d, #968f40);
 }
 
 .auth_portal_card:hover {
@@ -111,10 +111,10 @@
   height: 150%;
   object-position: center;
   transform: rotate(15deg) scale(1);
-  filter: opacity(0.4) drop-shadow(0 0 35px white);
+  filter: opacity(0.8) drop-shadow(0 0 40px white) drop-shadow(0 5px 3px black);
   transition: all 0.1s;
   object-fit: cover;
-  margin-left: 50%;
+  margin-left: 55%;
 }
 
 .auth_portal_card:hover .portal_card_img {
