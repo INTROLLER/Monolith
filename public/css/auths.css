@@ -108,13 +108,13 @@
 .portal_card_img {
   position: relative;
   width: auto;
-  height: 150%;
+  height: 115%;
   object-position: center;
   transform: rotate(15deg) scale(1);
-  filter: opacity(0.8) drop-shadow(0 0 40px white) drop-shadow(0 5px 3px black);
+  filter: opacity(0.3) drop-shadow(0 0 30px white) drop-shadow(0 5px 3px black);
   transition: all 0.1s;
   object-fit: cover;
-  margin-left: 55%;
+  margin-left: 60%;
 }
 
 .auth_portal_card:hover .portal_card_img {
@@ -145,7 +145,7 @@
   transition: all 0.1s;
   caret-color: transparent;
   overflow: hidden;
-  max-width: 230px;
+  max-width: 210px;
 }
 
 .portal_card_arrow {

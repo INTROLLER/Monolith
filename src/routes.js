@@ -22,6 +22,18 @@ fs.access(dataPath)
   .then(() => fs.writeFile(dataPath, JSON.stringify([]), 'utf8'))
 });
 
+fs.copyFile(dataPath, './backup/data.json')
+.then((err) => {
+  if (err) throw err;
+  console.log('Backup of data was issued');
+});
+
+fs.copyFile(keysPath, './backup/keys.json')
+.then((err) => {
+  if (err) throw err;
+  console.log('Backup of keys was issued');
+});
+
 // Serve the HTML page
 router.get('/', (req, res) => {
   fs.readFile(dataPath, 'utf8')
