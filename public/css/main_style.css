@@ -10,11 +10,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
   overflow: hidden;
-  background: linear-gradient(45deg, 
-                    #05070a,         /* start */
-                    #070a0f 25%,     /* intermediate at 25% */
-                    #0b1018 75%,     /* intermediate at 75% */
-                    #0d131d);        /* end */
 }
 
 * {
