@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs').promises;
+const fs = require('fs/promises');
 const { encrypt, decrypt, generateKeys } = require('./utils/security');
 const { generatePass } = require('./utils/generator');
 const { benchmark } = require('./utils/benchmark');
@@ -28,15 +28,22 @@ async function backupFiles() {
 // Set up security keys if they don't exist
 fs.access(keysPath)
 .catch(() => {
-  return fs.mkdir('./data', { recursive: true })
-  .then(() => fs.writeFile(keysPath, JSON.stringify(generateKeys()), 'utf8'));
+  fs.mkdir('./data', { recursive: true })
+  .then(() => {
+    fs.writeFile(keysPath, JSON.stringify(generateKeys()), 'utf8')
+    .then(() => console.log('Security keys were created'))
+  })
+  .catch(err => console.error('Error:', err));
 })
 
 // Set up storage if it doesn't exist
 .then(() => fs.access(dataPath))
 .catch(() => {
-  return fs.mkdir('./data', { recursive: true })
-  .then(() => fs.writeFile(dataPath, JSON.stringify([]), 'utf8'));
+  fs.mkdir('./data', { recursive: true })
+  .then(() => {
+    fs.writeFile(dataPath, JSON.stringify([]), 'utf8')
+    .then(() => console.log('Storage was created'))
+  });
 })
 
 // Only issue the backup after both checks are complete

@@ -11,24 +11,16 @@ const symb = '!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
 const AllChars = [...lower, ...upper, ...num, ...symb + ' '];
 const AllCharsNoSpace = [...lower, ...upper, ...num, ...symb];
 
-// Load keys synchronously on startup
-try {
-  if (fs.existsSync(mapsPath)) {
-    const data = fs.readFileSync(mapsPath, 'utf8'); // Blocking call
-    cryptoString = JSON.parse(data);
-    console.log("✅ Keys loaded successfully on startup!");
-  } else {
-    console.log("⚠️ Keys file not found, generating new keys...");
-    cryptoString = generateKeys();
-    fs.writeFileSync(mapsPath, JSON.stringify(cryptoString, null, 2), 'utf8');
-    console.log("✅ New keys generated and saved!");
-  }
-} catch (error) {
-  console.error("❌ Error reading keys.json:", error);
-  process.exit(1); // Exit the app if keys can't be loaded
+function readKeys() {
+  fs.readFile(mapsPath, 'utf8')
+  .then((data) => {
+    cryptoString = JSON.parse(data)
+  })
+  .catch(err => console.error('Error:', err));
 }
 
 function encrypt(data_type, data) {
+  readKeys()
   let key
 
   if (data_type == 'password') key = cryptoString[0]
@@ -48,6 +40,7 @@ function encrypt(data_type, data) {
 }
 
 function decrypt(data_type, data) {
+  readKeys()
   let key
 
   if (data_type == 'password') key = cryptoString[0]
