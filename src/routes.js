@@ -8,30 +8,43 @@ const { json } = require('body-parser');
 const dataPath = './data/data.json';
 const keysPath = './data/keys.json';
 
+async function backupFiles() {
+  try {
+      // Ensure the backup directory exists
+      await fs.mkdir('./backup', { recursive: true });
+
+      // Copy data file
+      await fs.copyFile(dataPath, './backup/data.json');
+      console.log('Backup of data was issued');
+
+      // Copy keys file
+      await fs.copyFile(keysPath, './backup/keys.json');
+      console.log('Backup of keys was issued');
+  } catch (err) {
+      console.error('Error during backup:', err);
+  }
+}
+
 // Set up security keys if they don't exist
 fs.access(keysPath)
 .catch(() => {
   return fs.mkdir('./data', { recursive: true })
-  .then(() => fs.writeFile(keysPath, JSON.stringify(generateKeys()), 'utf8'))
-});
+  .then(() => fs.writeFile(keysPath, JSON.stringify(generateKeys()), 'utf8'));
+})
 
 // Set up storage if it doesn't exist
-fs.access(dataPath)
+.then(() => fs.access(dataPath))
 .catch(() => {
   return fs.mkdir('./data', { recursive: true })
-  .then(() => fs.writeFile(dataPath, JSON.stringify([]), 'utf8'))
-});
+  .then(() => fs.writeFile(dataPath, JSON.stringify([]), 'utf8'));
+})
 
-fs.copyFile(dataPath, './backup/data.json')
-.then((err) => {
-  if (err) throw err;
-  console.log('Backup of data was issued');
-});
-
-fs.copyFile(keysPath, './backup/keys.json')
-.then((err) => {
-  if (err) throw err;
-  console.log('Backup of keys was issued');
+// Only issue the backup after both checks are complete
+.then(() => {
+  backupFiles();
+})
+.catch((err) => {
+  console.error('Error during setup or backup:', err);
 });
 
 // Serve the HTML page
