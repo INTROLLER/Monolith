@@ -1,58 +1,82 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs/promises');
-const { encrypt, decrypt, generateKeys } = require('./utils/security');
+const { encrypt, decrypt, generateKeys, readKeys } = require('./utils/security');
 const { generatePass } = require('./utils/generator');
 const { benchmark } = require('./utils/benchmark');
 const { json } = require('body-parser');
 const dataPath = './data/data.json';
 const keysPath = './data/keys.json';
 
-async function backupFiles() {
+// Function to check and create a directory if it doesn't exist
+async function ensureDirectoryExists(path) {
   try {
-      // Ensure the backup directory exists
-      await fs.mkdir('./backup', { recursive: true });
-
-      // Copy data file
-      await fs.copyFile(dataPath, './backup/data.json');
-      console.log('Backup of data was issued');
-
-      // Copy keys file
-      await fs.copyFile(keysPath, './backup/keys.json');
-      console.log('Backup of keys was issued');
+    await fs.access(path);
   } catch (err) {
-      console.error('Error during backup:', err);
+    await fs.mkdir(path, { recursive: true });
   }
 }
 
-// Set up security keys if they don't exist
-fs.access(keysPath)
-.catch(() => {
-  fs.mkdir('./data', { recursive: true })
-  .then(() => {
-    fs.writeFile(keysPath, JSON.stringify(generateKeys()), 'utf8')
-    .then(() => console.log('Security keys were created'))
-  })
-  .catch(err => console.error('Error:', err));
-})
+// Function to perform the backup
+async function backupFiles() {
+  try {
+    // Ensure the backup directory exists
+    await ensureDirectoryExists('./backup');
 
-// Set up storage if it doesn't exist
-.then(() => fs.access(dataPath))
-.catch(() => {
-  fs.mkdir('./data', { recursive: true })
-  .then(() => {
-    fs.writeFile(dataPath, JSON.stringify([]), 'utf8')
-    .then(() => console.log('Storage was created'))
-  });
-})
+    await fs.copyFile(dataPath, './backup/data.json');
+    console.log('Backup of data was issued');
 
-// Only issue the backup after both checks are complete
-.then(() => {
-  backupFiles();
-})
-.catch((err) => {
-  console.error('Error during setup or backup:', err);
-});
+    await fs.copyFile(keysPath, './backup/keys.json');
+    console.log('Backup of keys was issued');
+  } catch (err) {
+    console.error('Error during backup:', err);
+  }
+}
+
+// Function to initialize security keys
+async function setupSecurityKeys() {
+  try {
+    const keysExist = await fs.access(keysPath).then(() => true).catch(() => false);
+    if (!keysExist) {
+      await fs.mkdir('./data', { recursive: true });
+      const newKeys = generateKeys();
+      await fs.writeFile(keysPath, JSON.stringify(newKeys), 'utf8');
+      console.log('Security keys were created');
+    }
+  } catch (err) {
+    console.error('Error setting up security keys:', err);
+  }
+}
+
+// Function to initialize storage
+async function setupStorage() {
+  try {
+    const dataExist = await fs.access(dataPath).then(() => true).catch(() => false);
+    if (!dataExist) {
+      await fs.mkdir('./data', { recursive: true });
+      await fs.writeFile(dataPath, JSON.stringify([]), 'utf8');
+      console.log('Storage was created');
+    }
+  } catch (err) {
+    console.error('Error setting up storage:', err);
+  }
+}
+
+// Main function that orchestrates setup, backup, and key reading
+async function initializeApp() {
+  try {
+    await setupSecurityKeys();
+    await setupStorage();
+
+    await backupFiles();
+
+    readKeys();
+  } catch (err) {
+    console.error('Error during setup or backup:', err);
+  }
+}
+
+initializeApp();
 
 // Serve the HTML page
 router.get('/', (req, res) => {

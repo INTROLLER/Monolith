@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs/promises');
 
 let cryptoString
 const mapsPath = './data/keys.json';
@@ -20,14 +20,13 @@ function readKeys() {
 }
 
 function encrypt(data_type, data) {
-  readKeys()
-  let key
+  let key;
 
-  if (data_type == 'password') key = cryptoString[0]
-  else if (data_type == 'login') key = cryptoString[1]
-  else if (data_type == 'auth_portal') key = cryptoString[2]
+  if (data_type === 'password') key = cryptoString[0];
+  else if (data_type === 'login') key = cryptoString[1];
+  else if (data_type === 'auth_portal') key = cryptoString[2];
 
-  let result = ''
+  let result = '';
 
   for (let i = 0; i < data.length; i++) {
     let char = data[i]
@@ -36,16 +35,15 @@ function encrypt(data_type, data) {
     result += encryptedChar
   }
 
-  return result
+  return result;
 }
 
-function decrypt(data_type, data) {
-  readKeys()
-  let key
+function decrypt(data_type, data) {  
+  let key;
 
-  if (data_type == 'password') key = cryptoString[0]
-  else if (data_type == 'login') key = cryptoString[1]
-  else if (data_type == 'auth_portal') key = cryptoString[2]
+  if (data_type == 'password') key = cryptoString[0];
+  else if (data_type == 'login') key = cryptoString[1];
+  else if (data_type == 'auth_portal') key = cryptoString[2];
 
   let result = ''
   
@@ -81,5 +79,6 @@ function generateKeys() {
 module.exports = {
   encrypt,
   decrypt,
-  generateKeys
+  generateKeys,
+  readKeys
 }
