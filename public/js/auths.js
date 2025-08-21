@@ -447,6 +447,13 @@ authPortalInput.addEventListener('keydown', (e) => {
             <p class="dropdown_option_value">${authPortal}</p>
         </div>
       `
+      const newOption = portalDropdown.querySelector(`#${authPortal}_option`);
+      newOption.addEventListener('click', (e) => {
+          console.log(e.target)
+          e.stopPropagation();
+          newOption.closest('.dropdown').classList.remove('open');
+          newOption.closest('.dropdown').querySelector('.dropdown_disp_text').textContent = newOption.querySelector('.dropdown_option_value').textContent;
+      });
 
       if (document.querySelector('#portal_dropdown_menu').children.length >= 4) {
         let height = 0;

@@ -90,6 +90,7 @@ document.querySelectorAll('.dropdown').forEach((dropdown) => {
 
 document.querySelectorAll('.dropdown_option').forEach((option) => {
   option.addEventListener('click', (e) => {
+    console.log(e.target)
     e.stopPropagation();
     option.closest('.dropdown').classList.remove('open');
     option.closest('.dropdown').querySelector('.dropdown_disp_text').textContent = option.querySelector('.dropdown_option_value').textContent;
