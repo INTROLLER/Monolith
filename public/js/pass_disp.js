@@ -173,7 +173,6 @@ passDispClose.addEventListener('click', () => {
 
   if (activeCard) {
     activeCard.classList.remove('active');
-    activeCard.querySelector('.portal_card_arrow').innerHTML = 'arrow_forward_ios';
     activeCard.querySelector('.portal_card_icon').innerHTML = 'folder';
   }
 })

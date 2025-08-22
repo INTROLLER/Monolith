@@ -2,7 +2,6 @@ html {
   height: 100%;
 }
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #05070a;
@@ -108,7 +107,7 @@ body {
   justify-content: center;
   background-image: linear-gradient(45deg, #0d131d, #141e2c);
   border-radius: 50px;
-  padding: 0 10px;
+  padding: 0 13px;
   box-sizing: border-box;
 }
 

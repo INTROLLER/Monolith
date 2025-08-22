@@ -14,6 +14,7 @@ const portalTitles = document.querySelectorAll('.portal_title');
 const noPortalsHldr = document.querySelector('#no_portals_hldr');
 
 const portalDropdown = document.querySelector('#portal_dropdown');
+const portalDropdownMenu = document.querySelector('#portal_dropdown_menu');
 const portalDropdownText = document.querySelector('#portal_dropdown_disp_text');
 
 const passDisp = document.querySelector('#pass_disp_container');
@@ -253,7 +254,6 @@ function handlePortalCard(card) {
       card.classList.remove('active');
       passDisp.removeAttribute('style');
       toolsContainer.removeAttribute('style');
-      card.querySelector('.portal_card_arrow').innerHTML = 'arrow_forward_ios';
       card.querySelector('.portal_card_icon').innerHTML = 'folder';
       return;
     };
@@ -262,7 +262,6 @@ function handlePortalCard(card) {
 
     if (activeCard) {
       activeCard.classList.remove('active');
-      activeCard.querySelector('.portal_card_arrow').innerHTML = 'arrow_forward_ios';
       activeCard.querySelector('.portal_card_icon').innerHTML = 'folder';
     }
     
@@ -277,7 +276,6 @@ function handlePortalCard(card) {
       toolsContainer.style.display = 'none';
 
       card.classList.toggle('active');
-      card.querySelector('.portal_card_arrow').innerHTML = 'close';
       card.querySelector('.portal_card_icon').innerHTML = 'folder_open';
 
       document.querySelector('#pass_disp_title').innerHTML = portalName;
@@ -310,7 +308,7 @@ function handlePortalCard(card) {
                 </div>
                 <div class="input_hldr">
                   <div class="input_cover">
-                    <i class="material-symbols-rounded input_icon">encrypted</i>
+                    <i class="material-symbols-rounded input_icon">key</i>
                     <input type="password" id="password_input_${i}" class="data_input pass_input" readonly>
                     <button type="button" id="pass_vis_toggler_${i}" class="vis_toggler transparent_btn"><i class="material-symbols-rounded btn_icon">visibility</i></button>
                   </div>
@@ -359,10 +357,10 @@ function handlePortalCard(card) {
 function adjustInputWidth(input) {
   function setWidth(e = null) {
     const tempSpan = document.createElement('span');
-    tempSpan.style.visibility = 'hidden'; // Make it invisible
-    tempSpan.style.position = 'absolute'; // Prevent affecting layout
-    tempSpan.style.whiteSpace = 'pre'; // Preserve spaces exactly as input
-    tempSpan.style.font = getComputedStyle(input).font; // Match font styles
+    tempSpan.style.visibility = 'hidden';
+    tempSpan.style.position = 'absolute';
+    tempSpan.style.whiteSpace = 'pre';
+    tempSpan.style.font = getComputedStyle(input).font;
 
     if (input.classList.contains('portal_title')) {
       const value = input.getAttribute('value');
@@ -375,14 +373,21 @@ function adjustInputWidth(input) {
     } else {
       tempSpan.innerText = input.value;
     }
-    
+
     document.body.appendChild(tempSpan);
     const width = tempSpan.offsetWidth + 2;
     input.style.width = `${width}px`;
     document.body.removeChild(tempSpan);
-  };
+  }
 
-  setWidth(); // Set initial width
+  // Wait for fonts to load before first measurement
+  if (document.fonts) {
+    document.fonts.ready.then(setWidth);
+  } else {
+    // Fallback if Font Loading API isn’t supported
+    window.addEventListener('load', setWidth);
+  }
+
   input.addEventListener('input', setWidth);
 }
 
@@ -429,7 +434,6 @@ authPortalInput.addEventListener('keydown', (e) => {
                           <span class="portal_img_hldr">
                               <img class="portal_card_img" src="media/shield_lock.png" alt="">
                           </span>
-                          <i class="material-symbols-rounded portal_card_arrow">arrow_forward_ios</i>
                           `
 
       authListHldr.appendChild(newCard);
@@ -441,29 +445,31 @@ authPortalInput.addEventListener('keydown', (e) => {
       const starBtn = newCard.querySelector('.portal_star_btn');
       const portalTitle = newCard.querySelector('.portal_title');
 
-      portalDropdown.querySelector('#portal_dropdown_menu').innerHTML += `
+      portalDropdownMenu.insertAdjacentHTML('beforeend', `
         <div id="${authPortal}_option" class="dropdown_option">
             <i class="material-symbols-rounded dropdown_icon">folder</i>
             <p class="dropdown_option_value">${authPortal}</p>
         </div>
-      `
-      const newOption = portalDropdown.querySelector(`#${authPortal}_option`);
+      `);
+
+      const newOption = document.querySelector(`#${authPortal}_option`);
+
       newOption.addEventListener('click', (e) => {
-          console.log(e.target)
-          e.stopPropagation();
-          newOption.closest('.dropdown').classList.remove('open');
-          newOption.closest('.dropdown').querySelector('.dropdown_disp_text').textContent = newOption.querySelector('.dropdown_option_value').textContent;
+        console.log(e.target)
+        e.stopPropagation();
+        newOption.closest('.dropdown').classList.remove('open');
+        newOption.closest('.dropdown').querySelector('.dropdown_disp_text').textContent = newOption.querySelector('.dropdown_option_value').textContent;
       });
 
-      if (document.querySelector('#portal_dropdown_menu').children.length >= 4) {
+      if (portalDropdownMenu.children.length >= 4) {
         let height = 0;
-        const children = document.querySelector('#portal_dropdown_menu').children;
+        const children = portalDropdownMenu.children;
   
         for (let i = 0; i < 4; i++) {
           height += parseInt(children[i].offsetHeight);
         }
   
-        document.querySelector('#portal_dropdown_menu').style.maxHeight = `${height}px`;
+        portalDropdownMenu.style.maxHeight = `${height}px`;
       }
 
       adjustInputWidth(portalTitle);
@@ -520,7 +526,6 @@ createPortalBtn.addEventListener('click', function () {
                           <span class="portal_img_hldr">
                               <img class="portal_card_img" src="media/shield_lock.png" alt="">
                           </span>
-                          <i class="material-symbols-rounded portal_card_arrow">arrow_forward_ios</i>
                           `
 
     authListHldr.appendChild(newCard);
@@ -532,22 +537,31 @@ createPortalBtn.addEventListener('click', function () {
     const starBtn = newCard.querySelector('.portal_star_btn');
     const portalTitle = newCard.querySelector('.portal_title');
 
-    portalDropdown.querySelector('#portal_dropdown_menu').innerHTML += `
+    portalDropdownMenu.insertAdjacentHTML('beforeend', `
       <div id="${authPortal}_option" class="dropdown_option">
           <i class="material-symbols-rounded dropdown_icon">folder</i>
           <p class="dropdown_option_value">${authPortal}</p>
       </div>
-    `
+    `);
 
-    if (document.querySelector('#portal_dropdown_menu').children.length >= 4) {
+    const newOption = document.querySelector(`#${authPortal}_option`);
+
+    newOption.addEventListener('click', (e) => {
+      console.log(e.target)
+      e.stopPropagation();
+      newOption.closest('.dropdown').classList.remove('open');
+      newOption.closest('.dropdown').querySelector('.dropdown_disp_text').textContent = newOption.querySelector('.dropdown_option_value').textContent;
+    });
+
+    if (portalDropdownMenu.children.length >= 4) {
       let height = 0;
-      const children = document.querySelector('#portal_dropdown_menu').children;
+      const children = portalDropdownMenu.children;
 
       for (let i = 0; i < 4; i++) {
         height += parseInt(children[i].offsetHeight);
       }
 
-      document.querySelector('#portal_dropdown_menu').style.maxHeight = `${height}px`;
+      portalDropdownMenu.style.maxHeight = `${height}px`;
     }
 
     adjustInputWidth(portalTitle);
