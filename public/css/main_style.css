@@ -53,6 +53,36 @@ body {
   transform: scale(0.95);
 }
 
+.round_btn {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+  color: white;
+  background-color: #121b29;
+  box-sizing: border-box;
+  border-radius: 100%;
+  padding: 5px;
+  transition: all 0.1s;
+}
+
+.round_btn:hover {
+  transform: scale(1.05);
+}
+
+.round_btn:active {
+  transform: scale(0.95);
+}
+
+.round_btn .btn_icon {
+  font-size: 28px;
+}
+
 .advanced_btn {
   position: relative;
   display: flex;
@@ -94,6 +124,7 @@ body {
   gap: 10px;
   align-items: center;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .input_cover {

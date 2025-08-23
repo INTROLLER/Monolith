@@ -16,6 +16,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-top: 10px;
 }
 
 #pass_disp_title_hldr {
@@ -26,6 +27,7 @@
   align-items: center;
   justify-content: start;
   gap: 13px;
+  padding-left: 20px;
 }
 
 #pass_disp_title {
@@ -36,18 +38,7 @@
   transition: all 0.1s;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-#pass_disp_close .btn_icon {
-  font-size: 33px;
-}
-
-#pass_disp_close:hover {
-  transform: scale(1.15);
-}
-
-#pass_disp_close:active {
-  transform: scale(0.95);
+  margin: 0;
 }
 
 .pass_disp_icon {
