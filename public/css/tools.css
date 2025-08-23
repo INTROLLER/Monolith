@@ -40,35 +40,10 @@
   position: relative;
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: start;
   gap: 12px;
-}
-
-#length_disp_container {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-#length_label {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  outline: none;
-  background: none;
-  padding: 0;
-  margin: 0;
-  color: white;
 }
 
 #length_disp_hldr {

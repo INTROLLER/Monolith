@@ -254,7 +254,7 @@ function handlePortalCard(card) {
       card.classList.remove('active');
       passDisp.removeAttribute('style');
       toolsContainer.removeAttribute('style');
-      card.querySelector('.portal_card_icon').innerHTML = 'folder';
+      card.querySelector('.portal_card_icon').innerHTML = 'database';
       return;
     };
 
@@ -262,7 +262,7 @@ function handlePortalCard(card) {
 
     if (activeCard) {
       activeCard.classList.remove('active');
-      activeCard.querySelector('.portal_card_icon').innerHTML = 'folder';
+      activeCard.querySelector('.portal_card_icon').innerHTML = 'database';
     }
     
     fetch(`/api/get_portal?portal=${portalName}`, {
@@ -276,9 +276,8 @@ function handlePortalCard(card) {
       toolsContainer.style.display = 'none';
 
       card.classList.toggle('active');
-      card.querySelector('.portal_card_icon').innerHTML = 'folder_open';
 
-      document.querySelector('#pass_disp_title').innerHTML = portalName;
+      document.querySelector('#pass_disp_title').textContent = portalName;
       const credsLength = data.length;
 
       const renderedCreds = passListHldr.querySelectorAll('.cred_card');
@@ -437,7 +436,7 @@ authPortalInput.addEventListener('keydown', (e) => {
       newCard.classList.add('auth_portal_card');
 
       newCard.innerHTML = `<div class="portal_name_hldr">
-                              <i class="material-symbols-rounded portal_card_icon">folder</i>
+                              <i class="material-symbols-rounded portal_card_icon">database</i>
                               <input type="text" class="portal_title" readonly value="${authPortal}">
                               <div class="portal_btns_hldr">
                                   <button type="button" class="portal_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
@@ -459,7 +458,7 @@ authPortalInput.addEventListener('keydown', (e) => {
 
       portalDropdownMenu.insertAdjacentHTML('beforeend', `
         <div id="${authPortal}_option" class="dropdown_option">
-            <i class="material-symbols-rounded dropdown_icon">folder</i>
+            <i class="material-symbols-rounded dropdown_icon">database</i>
             <p class="dropdown_option_value">${authPortal}</p>
         </div>
       `);
@@ -525,7 +524,7 @@ createPortalBtn.addEventListener('click', function () {
     newCard.classList.add('auth_portal_card');
 
     newCard.innerHTML = `<div class="portal_name_hldr">
-                              <i class="material-symbols-rounded portal_card_icon">folder</i>
+                              <i class="material-symbols-rounded portal_card_icon">database</i>
                               <input type="text" class="portal_title" readonly value="${authPortal}">
                               <div class="portal_btns_hldr">
                                   <button type="button" class="portal_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
@@ -547,7 +546,7 @@ createPortalBtn.addEventListener('click', function () {
 
     portalDropdownMenu.insertAdjacentHTML('beforeend', `
       <div id="${authPortal}_option" class="dropdown_option">
-          <i class="material-symbols-rounded dropdown_icon">folder</i>
+          <i class="material-symbols-rounded dropdown_icon">database</i>
           <p class="dropdown_option_value">${authPortal}</p>
       </div>
     `);

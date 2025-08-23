@@ -152,7 +152,7 @@ input[readonly] {
   border-radius: 8px;
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 50px;
   box-sizing: border-box;
 }
 

@@ -21,14 +21,11 @@
   </div>
   <div id="generator_settings_container">
     <div id="length_container">
-        <div id="length_disp_container">
-            <h3 id="length_label">Password length</h3>
-            <div id="length_disp_hldr">
-                <input type="number" id="length_disp"></input>
-                <p id="length_unit">ch</p>
-            </div>
-        </div>
         <input type="range" id="length_range" min="15" max="100" value="100">
+        <div id="length_disp_hldr">
+            <input type="number" id="length_disp"></input>
+            <p id="length_unit">ch</p>
+        </div>
       </div>
       <div id="main_complexity_container">
         <span class="complexity_container">
@@ -55,18 +52,18 @@
   </div>
   <div id="save_container">
     <div id="portal_dropdown" class="dropdown">
-        <i class="material-symbols-rounded dropdown_icon">folder_copy</i>
+        <i class="material-symbols-rounded dropdown_icon">database</i>
         <p id="portal_dropdown_disp_text" class="dropdown_disp_text">Choose a portal</p>
         <i class="material-symbols-rounded dropdown_arrow">keyboard_arrow_down</i>
         <div id="portal_dropdown_menu" class="dropdown_menu">
             <% for (let i = 0; i < data.length; i++) { %>
                 <div id="<%= data[i]['title']%>_option" class="dropdown_option">
-                    <i class="material-symbols-rounded dropdown_icon">folder</i>
+                    <i class="material-symbols-rounded dropdown_icon">database</i>
                     <p class="dropdown_option_value"><%= data[i]['title']%></p>
                 </div>
             <% } %>
         </div>
     </div>
-    <button type="button" id="save_btn" class="advanced_btn"><i class="material-symbols-rounded btn_icon">cloud_upload</i> Save</button>
+    <button type="button" id="save_btn" class="advanced_btn"><i class="material-symbols-rounded btn_icon">save</i>Save</button>
   </div>
 </div>

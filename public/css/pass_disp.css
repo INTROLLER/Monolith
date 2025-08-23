@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  gap: 5px;
+  gap: 15px;
 }
 
 #pass_disp_top {
@@ -16,6 +16,16 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+#pass_disp_title_hldr {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 13px;
 }
 
 #pass_disp_title {
@@ -38,6 +48,13 @@
 
 #pass_disp_close:active {
   transform: scale(0.95);
+}
+
+.pass_disp_icon {
+  position: relative;
+  color: white;
+  font-size: 33px;
+  transition: all 0.1s;
 }
 
 .cred_card {
