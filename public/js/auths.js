@@ -375,20 +375,36 @@ function adjustInputWidth(input) {
     }
 
     document.body.appendChild(tempSpan);
-    const width = tempSpan.offsetWidth + 2;
-    input.style.width = `${width}px`;
+    const textWidth = tempSpan.offsetWidth + 2;
     document.body.removeChild(tempSpan);
+
+    // --- Calculate available space inside the flex container ---
+    const container = input.parentElement;
+    const icon = container.querySelector('.portal_card_icon');
+    const btns = container.querySelector('.portal_btns_hldr');
+
+    const styles = getComputedStyle(container);
+    const gap = parseFloat(styles.columnGap || styles.gap || 0); // support both
+
+    const totalGap = gap * (container.children.length - 1);
+
+    const availableWidth =
+      container.clientWidth -
+      (icon?.offsetWidth || 0) -
+      (btns?.offsetWidth || 0) -
+      totalGap;
+
+    input.style.width = `${Math.min(textWidth, availableWidth)}px`;
   }
 
-  // Wait for fonts to load before first measurement
   if (document.fonts) {
     document.fonts.ready.then(setWidth);
   } else {
-    // Fallback if Font Loading API isn’t supported
     window.addEventListener('load', setWidth);
   }
 
   input.addEventListener('input', setWidth);
+  window.addEventListener('resize', setWidth); // optional: respond to resizes
 }
 
 authPortalInput.addEventListener('keydown', (e) => {
@@ -430,11 +446,7 @@ authPortalInput.addEventListener('keydown', (e) => {
                                   <button type="button" class="portal_submit_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
                                   <button type="button" class="portal_cancel_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
                               </div>
-                          </div>
-                          <span class="portal_img_hldr">
-                              <img class="portal_card_img" src="media/shield_lock.png" alt="">
-                          </span>
-                          `
+                          </div>`
 
       authListHldr.appendChild(newCard);
 
@@ -522,11 +534,7 @@ createPortalBtn.addEventListener('click', function () {
                                   <button type="button" class="portal_submit_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
                                   <button type="button" class="portal_cancel_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
                               </div>
-                          </div>
-                          <span class="portal_img_hldr">
-                              <img class="portal_card_img" src="media/shield_lock.png" alt="">
-                          </span>
-                          `
+                          </div>`
 
     authListHldr.appendChild(newCard);
 
