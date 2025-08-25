@@ -40,14 +40,14 @@
   border-radius: 5px;
 }
 
-#portals_search {
+#portals_search, #create_portal_container {
   padding-right: 20px;
 }
 
 .auth_portal_card {
   width: 100%;
-  padding: 20px 20px;
-  background-image: linear-gradient(45deg, #0a0e16, #141e2c);
+  padding: 15px 20px;
+  background-color: var(--bg2);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.1s;
@@ -59,30 +59,17 @@
   z-index: 1;
 }
 
-.auth_portal_card.active {
-  outline: 1px solid white;
-  outline-offset: -1px;
-}
-
 .auth_portal_card.starred {
-  background-image: linear-gradient(45deg, #2c2a0d, #968f40);
+  background-color: var(--accent1);
 }
 
-.auth_portal_card:hover {
-  filter:contrast(0.95);
+.auth_portal_card:hover, .auth_portal_card.active {
+  filter:contrast(0.8);
 }
 
-/* .auth_portal_card.active {
-  box-shadow: inset 0 0 0 0.6px white;
-} */
-
-.auth_portal_card.starred:hover {
-  filter:contrast(0.9);
+.auth_portal_card.starred:hover, .auth_portal_card.active.starred {
+  filter:contrast(0.8);
 }
-
-/* .auth_portal_card.active.starred {
-  box-shadow: inset 0 0 0 0.6px #ffff5c;
-} */
 
 .portal_card_icon {
   color: rgb(255, 255, 255);
@@ -186,6 +173,17 @@
   'opsz' 35
 }
 
-#create_portal_container {
-  padding-right: 20px;
+@media screen and (max-width: 1000px) {
+  #auth_portals_container {
+    width: 100%;
+  }
+
+  #auth_list_holder {
+    overflow: visible;
+    padding: 0;
+  }
+
+  #portals_search, #create_portal_container {
+    padding: 0;
+  }
 }

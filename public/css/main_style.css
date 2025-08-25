@@ -1,14 +1,24 @@
+:root {
+  --bg1: #050505;
+  --bg2: #121314;
+  --bg3: #1b1d1f;
+  --bg4: #4b4b4b;
+  --bg5: #444444;
+  --accent1: #4f502d;
+}
+
 html {
   height: 100%;
 }
+
 body {
   margin: 0;
   padding: 0;
-  background-color: #05070a;
+  background-color: var(--bg1);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 * {
@@ -21,7 +31,7 @@ body {
   'FILL' 1,
   'wght' 600,
   'GRAD' 0,
-  'opsz' 40
+  'opsz' 45
 }
 
 .btn_icon {
@@ -64,7 +74,7 @@ body {
   background: none;
   outline: none;
   color: white;
-  background-color: #121b29;
+  background-color: var(--bg2);
   box-sizing: border-box;
   border-radius: 100%;
   padding: 5px;
@@ -96,7 +106,7 @@ body {
   background: none;
   outline: none;
   color: white;
-  background-color: #121b29;
+  background-color: var(--bg2);
   box-sizing: border-box;
   border-radius: 50px;
   padding: 8px 15px;
@@ -136,7 +146,7 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(45deg, #0d131d, #141e2c);
+  background-color: var(--bg2);
   border-radius: 50px;
   padding: 0 13px;
   box-sizing: border-box;
@@ -205,7 +215,7 @@ input[readonly] {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(45deg, #0d131d, #141e2c);
+  background-color: var(--bg2);
   padding: 0 10px 0 15px;
   box-sizing: border-box;
   border-radius: 10px;
@@ -259,7 +269,7 @@ input[readonly] {
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  background-image: linear-gradient(45deg, #0d131d, #141e2c);
+  background-color: var(--bg2);
   border-radius: 10px;
   overflow: auto;
   z-index: 1;
@@ -308,7 +318,7 @@ input[readonly] {
 }
 
 .dropdown_option:hover {
-  background-color: #121b29;
+  background-color: var(--bg3);
 }
 
 .dropdown_option_value {
@@ -325,7 +335,7 @@ input[readonly] {
   overflow: hidden;
 }
 
-@media screen and (max-width: 1620px) {
+@media screen and (max-width: 1900px) {
   #main_container {
     width: 85dvw;
   }
@@ -334,5 +344,13 @@ input[readonly] {
 @media screen and (max-width: 1100px) {
   #main_container {
     width: 98dvw;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  #main_container {
+    width: 100dvw;
+    flex-direction: column;
+    height: auto;
   }
 }
