@@ -4,6 +4,8 @@ const passDisp = document.querySelector('#pass_disp_container');
 const passListHldr = document.querySelector('#pass_list_hldr');
 const noCredsHldr = document.querySelector('#no_creds_hldr');
 
+const passDispCloser = document.querySelector('#pass_disp_closer');
+
 const passSearch = document.querySelector('#pass_search_input');
 
 function handleEditCredBtn(btn) {
@@ -163,6 +165,12 @@ function handleDeleteCredBtn(btn) {
     if (passListHldr.children.length <= 1) noCredsHldr.style.display = 'flex';
   });
 }
+
+passDispCloser.addEventListener('click', () => {
+  passDisp.style.display = 'none';
+  toolsContainer.style.display = 'flex';
+  document.querySelectorAll('.auth_portal_card.active').forEach(card => card.classList.remove('active'));
+})
 
 passSearch.addEventListener('input', () => {
   const searchValue = passSearch.value.toLowerCase();
