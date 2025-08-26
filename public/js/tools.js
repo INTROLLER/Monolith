@@ -5,11 +5,13 @@ const copyLoginBtn = document.querySelector('#copy_login_btn');
 const copyPassBtn = document.querySelector('#copy_pass_btn');
 const passwordInput = document.querySelector('#password_input');
 const generateBtn = document.querySelector('#generate_btn');
+const portalDropdown = document.querySelector('#portal_dropdown');
 const portalDropdownText = document.querySelector('#portal_dropdown_disp_text');
 const saveBtn = document.querySelector('#save_btn');
 const complexityContainers = document.querySelectorAll('.complexity_container')
 const lengthSlider = document.querySelector('#length_range');
 const lengthDisp = document.querySelector('#length_disp');
+const saveContainer = document.querySelector('#save_container');
 
 import { handleCopyBtn, handleVisToggler, updateBarDisplay, animateFadeEffect,  } from './main.js';
 import { adjustInputWidth } from './auths.js';
@@ -112,7 +114,6 @@ document.addEventListener('click', (e) => {
 });
 
 window.onload = () => {
-
   document.querySelectorAll('.dropdown_menu').forEach((menu) => {
     let rect = menu.getBoundingClientRect();
     console.log((
@@ -135,6 +136,14 @@ window.onload = () => {
       menu.style.maxHeight = `${height}px`;
     }
   })
+
+  const containerGap = parseFloat(window.getComputedStyle(saveContainer).columnGap.replace('px', '')) * (saveContainer.children.length - 1);
+  const dropdownGap = parseFloat(window.getComputedStyle(portalDropdown).columnGap.replace('px', '')) * (portalDropdown.children.length - 1);
+  const dropdownPadding = parseFloat(window.getComputedStyle(portalDropdown).paddingLeft.replace('px', '')) + parseFloat(window.getComputedStyle(portalDropdown).paddingRight.replace('px', ''));
+  const dropdownIcon = portalDropdown.querySelector('.dropdown_icon');
+  const dropdownArrow = portalDropdown.querySelector('.dropdown_arrow');
+
+  portalDropdownText.style.maxWidth = `${saveContainer.offsetWidth - saveBtn.offsetWidth - containerGap - dropdownGap - dropdownPadding - dropdownIcon.offsetWidth - dropdownArrow.offsetWidth}px`;
 }
 
 lengthDisp.addEventListener('keydown', (e) => {

@@ -38,7 +38,7 @@ function updateBarDisplay(bar) {
     color = '#FF0000';
   }
 
-  bar.style.background = `linear-gradient(to right, ${color} 0%, ${color} ${percentage}%, #131313 ${percentage}%, #131313 100%)`;
+  bar.style.background = `linear-gradient(to right, ${color} 0%, ${color} ${percentage}%, #1a1c1e ${percentage}%, #1a1c1e 100%)`;
   lengthDisp.style.color = color;
   lengthDisp.value = bar.value;
   lengthDisp.dispatchEvent(new Event('input'));
@@ -74,7 +74,7 @@ function animateFadeEffect(btn, color, isTransparent = false) {
     } else {
       btn.style.transition = `all 0.1s, box-shadow 0.${ANIMDURATION}s linear, background-color 0.${ANIMDURATION}s linear`;
       btn.style.boxShadow = `none`;
-      btn.style.backgroundColor = `#131313`;
+      btn.style.backgroundColor = `#1a1c1e`;
     }
 
     clearAnimTimeout = setTimeout(() => {

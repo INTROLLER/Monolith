@@ -21,14 +21,13 @@
 
 #pass_disp_title {
   position: relative;
-  width: 90%;
+  width: 100%;
   text-align: start;
   color: white;
   transition: all 0.1s;
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
-  margin-top: 10px;
   padding-left: 10px;
 }
 

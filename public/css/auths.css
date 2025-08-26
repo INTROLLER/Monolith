@@ -173,6 +173,25 @@
   'opsz' 35
 }
 
+@media (pointer: coarse) {
+  .portal_btns_hldr {
+    display: none;
+  }
+
+  .portal_title {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .auth_portal_card:hover {
+    filter:contrast(1);
+  }
+
+  .auth_portal_card.starred:hover {
+    filter:contrast(1);
+  }
+}
+
 @media screen and (max-width: 1000px) {
   #auth_portals_container {
     width: 100%;
