@@ -22,7 +22,7 @@ saveBtn.addEventListener('click', function () {
   const authPortal = portalDropdownText.textContent;
 
   if (!passwordData || authPortal === 'Choose a portal') {
-    animateFadeEffect(saveBtn, 'rgb(255, 40, 40)');
+    animateFadeEffect(saveBtn, '#e26e73');
     return;
   }
 
@@ -39,7 +39,7 @@ saveBtn.addEventListener('click', function () {
     response.json()
     passwordInput.value = '';
     loginInput.value = '';
-    animateFadeEffect(saveBtn, '#2cd472');
+    animateFadeEffect(saveBtn, '#4ca582');
   })
   .catch((error) => console.error('Error:', error));
 });
@@ -52,7 +52,7 @@ generateBtn.addEventListener('click', () => {
   const length = lengthSlider.value;
 
   if (!useUpper && !useLower && !useNumbers && !useSymbols) {
-    animateFadeEffect(generateBtn, 'rgb(255, 40, 40)');
+    animateFadeEffect(generateBtn, '#e26e73');
     return;
   };
   
@@ -63,7 +63,7 @@ generateBtn.addEventListener('click', () => {
   .then(response => response.json())
   .then((data) => {
     passwordInput.value = data.password;
-    animateFadeEffect(generateBtn, '#2cd472');
+    animateFadeEffect(generateBtn, '#4ca582');
   })
   .catch((error) => console.error('Error:', error));
 })
@@ -71,8 +71,8 @@ generateBtn.addEventListener('click', () => {
 complexityContainers.forEach((container) => {
   const checkbox = container.getElementsByTagName('input')[0];
   container.addEventListener('click', () => {
-    if (!checkbox.checked) animateFadeEffect(container, '#2cd472', false);
-    else animateFadeEffect(container, 'rgb(255, 40, 40)', false);
+    if (!checkbox.checked) animateFadeEffect(container, '#4ca582', false);
+    else animateFadeEffect(container, '#e26e73', false);
     container.classList.toggle('inactive_complexity');
     checkbox.checked = !checkbox.checked
   })

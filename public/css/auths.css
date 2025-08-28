@@ -64,12 +64,16 @@
   order: -1;
 }
 
+.auth_portal_card.starred .portal_title, .auth_portal_card.starred .portal_card_icon, .auth_portal_card.starred .portal_edit_btn .btn_icon, .auth_portal_card.starred .portal_delete_btn .btn_icon, .auth_portal_card.starred .portal_submit_edit_btn .btn_icon, .auth_portal_card.starred .portal_cancel_edit_btn .btn_icon, .auth_portal_card.starred .portal_star_btn i {
+  color: var(--bg1);
+}
+
 .auth_portal_card:hover, .auth_portal_card.active {
-  filter:contrast(0.8);
+  filter: contrast(0.8);
 }
 
 .auth_portal_card.starred:hover, .auth_portal_card.active.starred {
-  filter:contrast(0.8);
+  filter: contrast(0.8);
 }
 
 .portal_card_icon {
@@ -154,11 +158,11 @@
 }
 
 .portal_delete_btn:hover .btn_icon {
-  color: rgb(255, 40, 40);
+  color: var(--accent4);
 }
 
 .portal_star_btn i {
-  color: var(--accent2);
+  color: var(--accent1);
   font-variation-settings:
   'FILL' 0,
   'wght' 500,

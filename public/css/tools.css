@@ -199,7 +199,7 @@
 }
 
 .inactive_complexity {
-  outline: 1px solid rgb(255, 40, 40);
+  outline: 1px solid var(--accent4);
 }
 
 .complexity_container:hover {
@@ -231,14 +231,14 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 2px solid rgb(255, 40, 40);
+  border: 2px solid var(--accent4);
   background-color: #121b29;
   outline: none;
 }
 
 .complexity_container input[type="checkbox"]:checked {
-  background-color: #2cd472;
-  border: 2px solid #2cd472;
+  background-color: var(--accent3);
+  border: 2px solid var(--accent3);
 }
 
 #save_container {

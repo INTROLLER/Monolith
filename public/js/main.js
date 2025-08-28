@@ -8,7 +8,7 @@ function handleCopyBtn(btn) {
     const data = input.value;
     const icon = btn.querySelector('i');
 
-    animateFadeEffect(icon, '#2cd472', true);
+    animateFadeEffect(icon, '#4ca582', true);
     navigator.clipboard.writeText(data);
   });
 }
@@ -29,7 +29,7 @@ function updateBarDisplay(bar) {
 
   const percentage = ((value - min) / (max - min)) * 100;
 
-  let color = '#2cd472';
+  let color = '#4ca582';
 
   if (value <= max / 2) {
     color = '#FFA500';

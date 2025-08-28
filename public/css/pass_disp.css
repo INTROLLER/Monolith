@@ -29,6 +29,7 @@
   text-overflow: ellipsis;
   margin: 0;
   padding-left: 10px;
+  font-size: 25px;
 }
 
 .pass_disp_icon {
@@ -70,7 +71,7 @@
 }
 
 .cred_delete_btn:hover .btn_icon {
-  color: rgb(255, 40, 40);
+  color: var(--accent4);
 }
 
 #pass_list_hldr {

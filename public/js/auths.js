@@ -47,8 +47,8 @@ function handleEditPortalBtn(btn) {
     input.focus();
     input.setSelectionRange(input.value.length, input.value.length);
     
-    input.style.caretColor = input.style.color || '#fff';
-    input.style.borderBottom = `1px solid ${input.style.color || '#fff'}`;
+    input.style.caretColor = input.style.color;
+    input.style.borderBottom = `1px solid ${input.style.color}`;
   });
 }
 
@@ -292,7 +292,7 @@ function handlePortalCard(card) {
         for (let i = 0; i < credsLength; i++) {
           const cardHtml = `
             <div id="${i}" class="cred_card" data-portal-name="${portalName}">
-              <button type="button" id="cred_delete_btn_${i}" class="cred_delete_btn transparent_btn"><i class="material-symbols-rounded btn_icon">do_not_disturb_on</i></button>
+              <button type="button" id="cred_delete_btn_${i}" class="cred_delete_btn transparent_btn"><i class="material-symbols-rounded btn_icon">delete</i></button>
               <div class="cred_card_input_container">
                 <div class="input_hldr">
                   <div class="input_cover">
@@ -411,7 +411,7 @@ authPortalInput.addEventListener('keydown', (e) => {
     const authPortal = authPortalInput.value;
 
     if (!authPortal || authPortal === "") {
-      animateFadeEffect(createPortalBtn, 'rgb(255, 40, 40)');
+      animateFadeEffect(createPortalBtn, '#e26e73');
       return;
     }
 
@@ -426,7 +426,7 @@ authPortalInput.addEventListener('keydown', (e) => {
       if (noPortalsHldr.style.display !== 'none') noPortalsHldr.style.display = 'none';
 
       response.json()
-      animateFadeEffect(createPortalBtn, '#2cd472');
+      animateFadeEffect(createPortalBtn, '#4ca582');
 
       authPortalInput.value = '';
       authPortalInput.focus();
@@ -440,7 +440,7 @@ authPortalInput.addEventListener('keydown', (e) => {
                               <input type="text" class="portal_title" readonly value="${authPortal}">
                               <div class="portal_btns_hldr">
                                   <button type="button" class="portal_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
-                                  <button type="button" class="portal_delete_btn transparent_btn"><i class="material-symbols-rounded btn_icon">delete_forever</i></button>
+                                  <button type="button" class="portal_delete_btn transparent_btn"><i class="material-symbols-rounded btn_icon">delete</i></button>
                                   <button type="button" class="portal_star_btn transparent_btn"><i class="material-symbols-rounded btn_icon">star</i></button>
                                   <button type="button" class="portal_submit_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
                                   <button type="button" class="portal_cancel_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
@@ -501,7 +501,7 @@ createPortalBtn.addEventListener('click', function () {
   const authPortal = authPortalInput.value;
 
   if (!authPortal || authPortal === "") {
-    animateFadeEffect(createPortalBtn, 'rgb(255, 40, 40)');
+    animateFadeEffect(createPortalBtn, '#e26e73');
     return;
   }
 
@@ -514,7 +514,7 @@ createPortalBtn.addEventListener('click', function () {
   })
   .then(() => {
     if (noPortalsHldr.style.display !== 'none') noPortalsHldr.style.display = 'none';
-    animateFadeEffect(createPortalBtn, '#2cd472');
+    animateFadeEffect(createPortalBtn, '#4ca582');
 
     authPortalInput.value = '';
     authPortalInput.focus();
@@ -528,7 +528,7 @@ createPortalBtn.addEventListener('click', function () {
                               <input type="text" class="portal_title" readonly value="${authPortal}">
                               <div class="portal_btns_hldr">
                                   <button type="button" class="portal_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">stylus</i></button>
-                                  <button type="button" class="portal_delete_btn transparent_btn"><i class="material-symbols-rounded btn_icon">delete_forever</i></button>
+                                  <button type="button" class="portal_delete_btn transparent_btn"><i class="material-symbols-rounded btn_icon">delete</i></button>
                                   <button type="button" class="portal_star_btn transparent_btn"><i class="material-symbols-rounded btn_icon">star</i></button>
                                   <button type="button" class="portal_submit_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">check</i></button>
                                   <button type="button" class="portal_cancel_edit_btn transparent_btn"><i class="material-symbols-rounded btn_icon">close</i></button>
