@@ -61,6 +61,7 @@
 
 .auth_portal_card.starred {
   background-color: var(--accent1);
+  order: -1;
 }
 
 .auth_portal_card:hover, .auth_portal_card.active {
@@ -157,7 +158,7 @@
 }
 
 .portal_star_btn i {
-  color: #ffff5c;
+  color: var(--accent2);
   font-variation-settings:
   'FILL' 0,
   'wght' 500,
