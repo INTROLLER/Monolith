@@ -29,14 +29,7 @@ function updateBarDisplay(bar) {
 
   const percentage = ((value - min) / (max - min)) * 100;
 
-  let color = '#4ca582';
-
-  if (value <= max / 2) {
-    color = '#FFA500';
-  }
-  if (value <= max / 4) {
-    color = '#FF0000';
-  }
+  let color = '#fff';
 
   bar.style.background = `linear-gradient(to right, ${color} 0%, ${color} ${percentage}%, #1a1c1e ${percentage}%, #1a1c1e 100%)`;
   lengthDisp.style.color = color;

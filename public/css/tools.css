@@ -237,8 +237,8 @@
 }
 
 .complexity_container input[type="checkbox"]:checked {
-  background-color: var(--accent3);
-  border: 2px solid var(--accent3);
+  background-color: var(--accent5);
+  border: 2px solid var(--accent5);
 }
 
 #save_container {

@@ -39,7 +39,7 @@ saveBtn.addEventListener('click', function () {
     response.json()
     passwordInput.value = '';
     loginInput.value = '';
-    animateFadeEffect(saveBtn, '#4ca582');
+    animateFadeEffect(saveBtn, '#ffffff');
   })
   .catch((error) => console.error('Error:', error));
 });
@@ -63,7 +63,7 @@ generateBtn.addEventListener('click', () => {
   .then(response => response.json())
   .then((data) => {
     passwordInput.value = data.password;
-    animateFadeEffect(generateBtn, '#4ca582');
+    animateFadeEffect(generateBtn, '#ffffff');
   })
   .catch((error) => console.error('Error:', error));
 })
@@ -71,7 +71,7 @@ generateBtn.addEventListener('click', () => {
 complexityContainers.forEach((container) => {
   const checkbox = container.getElementsByTagName('input')[0];
   container.addEventListener('click', () => {
-    if (!checkbox.checked) animateFadeEffect(container, '#4ca582', false);
+    if (!checkbox.checked) animateFadeEffect(container, '#ffffff', false);
     else animateFadeEffect(container, '#e26e73', false);
     container.classList.toggle('inactive_complexity');
     checkbox.checked = !checkbox.checked
