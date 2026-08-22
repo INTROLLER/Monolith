@@ -10,4 +10,4 @@ A simple local password manager with a web interface accessible at `localhost:30
 
 ## Usage
 
-Start the server and open `http://localhost:3000` in your browser.
+Start the server `src\app.js` and open `http://localhost:3000` in your browser.
